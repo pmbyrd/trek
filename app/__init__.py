@@ -1,12 +1,19 @@
 from flask import Flask
-from app.extensions import db
+import sys
+import os
+
+# Add the parent directory of the 'app' module to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from app.extensions import db, migrate
 
 from config import Config
 
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
-    # db.init_app(app)
+    db.init_app(app)
+    migrate.init_app(app, db)
 
     # Initialize Flask extensions here
 
