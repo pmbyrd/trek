@@ -29,6 +29,8 @@ def create_app(config_class=Config):
     app.register_blueprint(posts)
     from app.users import users
     app.register_blueprint(users)
+    from app.quadrants import quadrants
+    app.register_blueprint(quadrants)
 
     @app.route('/test/')
     def test_page():
@@ -55,6 +57,23 @@ def create_app(config_class=Config):
                 from app.seed.users_seed import seed_db
                 seed_db()
                 print('Seeded the database.')
+    
+    @app.cli.command('seed-trek-animal-db')
+    def seed_trek_db():
+        """Adds seed data to the database."""
+        with app.app_context():
+            if app.config['ENV'] == 'development':
+                from app.seed.seed import seed_animals
+                seed_animals()
+                print('Seeded the database.')
+                
+    @app.cli.command('drop-db')
+    def drop_db():
+        """Drops the database."""
+        with app.app_context():
+            db.drop_all()
+            print('Dropped the database.')           
+    
     
     
     return app

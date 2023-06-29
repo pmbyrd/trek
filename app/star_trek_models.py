@@ -7,7 +7,6 @@ class Animal(db.Model):
 
     __tablename__ = "animals"
     
-    
     name = db.Column(db.Text, nullable=False)
     
     uid = db.Column(db.Text, primary_key=True)
@@ -22,7 +21,9 @@ class Animal(db.Model):
     
     feline = db.Column(db.Boolean, nullable=False)
     
-
+    def __repr__(self):
+        return f"<Animal #{self.uid}: name = {self.name}>"
+    
 class AstronomicalObject(db.Model):
     """Creates an instance of an astronomical object for the database."""
     
@@ -36,7 +37,8 @@ class AstronomicalObject(db.Model):
     
     location = db.Column(db.JSON)
     
-    
+    def __repr__(self):
+        return f"<AstronomicalObject #{self.uid} name = {self.name}>, location = {self.location}>"
 
 class Character(db.Model):
     """Creates an instance of a character for the database."""
@@ -91,6 +93,9 @@ class Character(db.Model):
     
     hologramDateStatus = db.Column(db.Integer, nullable=True)
     
+    def __repr__(self):
+        return f"<Character #{self.uid}: name = {self.name}>"
+    
     
 class Performer(db.Model):
     """Creates an instance of a performer for the database."""
@@ -139,7 +144,9 @@ class Performer(db.Model):
     
     voyPerformer = db.Column(db.Boolean, nullable=False)
     	
-
+    def __repr__(self):
+        
+        return f"<Performer #{self.uid}: name = {self.name}>"
     
     
     
@@ -162,6 +169,10 @@ class Title(db.Model):
     position = db.Column(db.Boolean, nullable=False)
     
     mirror = db.Column(db.Boolean, nullable=False)
+    
+    # Create a representation of the object
+    def __repr__(self):
+        return f"<Title #{self.uid}: name = {self.name}>"
 
 
 class Location(db.Model):
@@ -219,6 +230,9 @@ class Location(db.Model):
     
     alternateReality = db.Column(db.Boolean, nullable=False)
     
+    def __repr__(self):
+        
+        return f"<Location #{self.uid}: name = {self.name}>"
     
 class Conflict(db.Model):
     """Creates an instance of a conflict for the database."""
@@ -243,6 +257,10 @@ class Conflict(db.Model):
     dominionWarBattle = db.Column(db.Boolean, nullable=False)
     
     alternateReality = db.Column(db.Boolean, nullable=False)
+    
+    def __repr__(self):
+        
+        return f"<Conflict #{self.uid}: name = {self.name}>, yearFrom = {self.yearFrom}, yearTo = {self.yearTo}>"
     
     
 class Element(db.Model):
@@ -275,6 +293,10 @@ class Element(db.Model):
     
     worldSeries = db.Column(db.Boolean, nullable=False)
     
+    def __repr__(self):
+        
+        return f"<Element #{self.uid}: name = {self.name}>, symbol = {self.symbol}, atomicNumber = {self.atomicNumber}, atomicWeight = {self.atomicWeight}>"
+    
     
 class Weapon(db.Model):
     """Creates an instance of a weapon for the database."""
@@ -301,6 +323,10 @@ class Weapon(db.Model):
     mirror = db.Column(db.Boolean, nullable=False)
     
     alternateReality = db.Column(db.Boolean, nullable=False)
+    
+    def __repr__(self):
+        
+        return f"<Weapon #{self.uid}: name = {self.name}>"
 
 
 class Food(db.Model):
@@ -332,6 +358,10 @@ class Food(db.Model):
     juice = db.Column(db.Boolean, nullable=False)
     
     tea = db.Column(db.Boolean, nullable=False)
+    
+    def __repr__(self):
+        
+        return f"<Food #{self.uid}: name = {self.name}>"
     
 
 class Technology(db.Model):
@@ -383,6 +413,10 @@ class Technology(db.Model):
     medicalEquipment = db.Column(db.Boolean, nullable=False)
     
     transporterTechnology = db.Column(db.Boolean, nullable=False)
+    
+    def __repr__(self):
+        
+        return f"<Technology #{self.uid}: name = {self.name}>"
 
 
 class Company(db.Model):
@@ -428,6 +462,10 @@ class Company(db.Model):
     tvAndFilmProductionCompany = db.Column(db.Boolean, nullable=False)
 
     videoGameCompany = db.Column(db.Boolean, nullable=False)
+    
+    def __repr__(self):
+        
+        return f"<Company #{self.uid}: name = {self.name}>"
 
 class Staff(db.Model):
     """Creates an instace of a staff member for the database."""
@@ -561,6 +599,9 @@ class Staff(db.Model):
 
     writer = db.Column(db.Boolean, nullable=False)
     
+    def __repr__(self):
+        
+        return f"<Staff #{self.uid}: name = {self.name}>"
 
 class Species(db.Model):
     """Creates an instance of a species from the Star Trek universe for the database"""
@@ -604,6 +645,10 @@ class Species(db.Model):
     # *homeworld and quadrant must be referenced to the astronomicalObjects table when not null it is a foreign key the data is json and must handle the reading the data from the json object
     astronomicalObects_uid = db.Column(db.String, db.ForeignKey('astronomicalObjects.uid'), nullable=True)
     
+    def __repr__(self):
+        
+        return f"<Species #{self.uid}: name = {self.name}>, homeworld = {self.homeworld}, quadrant = {self.quadrant}>"
+    
     
 
 class Organization(db.Model):
@@ -640,6 +685,10 @@ class Organization(db.Model):
     
     alternateReality = db.Column(db.Boolean, nullable=False)
     
+    def __repr__(self):
+        
+        return f"<Organization #{self.uid}: name = {self.name}>, government = {self.government}"
+    
 
 class Occupation(db.Model):
     """Creates an instance of an occupation from the Star Trek universe for the database"""
@@ -656,6 +705,10 @@ class Occupation(db.Model):
     medicalOccupation = db.Column(db.Boolean, nullable=False)
     
     scientificOccupation = db.Column(db.Boolean, nullable=False)
+    
+    def __repr__(self):
+        
+        return f"<Occupation #{self.uid}: name = {self.name}>"
     
 
 class SpacecraftClass(db.Model):
@@ -688,6 +741,10 @@ class SpacecraftClass(db.Model):
     
     affiliation = db.Column(db.Text, nullable=True)
     
+    def __repr__(self):
+        
+        return f"<SpacecraftClass #{self.uid}: name = {self.name}>, species = {self.species}>, affilation = {self.affiliation}>"
+    
 # !critcal need to fix the Spacecraft class, overwrote the correct file with the incorrect file
 class Spacecraft(db.Model):
     """Creates an instance of a spacecraft from the Star Trek universe for the database"""
@@ -713,6 +770,10 @@ class Spacecraft(db.Model):
     orginization_uid = db.Column(db.String, db.ForeignKey('organizations.uid'), nullable=True)
     
     operator = db.Column(db.JSON, nullable=True)
+    
+    def __repr__(self):
+        
+        return f"<Spacecraft #{self.uid}: name = {self.name}>, registry = {self.registry}, status = {self.status}, dateStatus = {self.dateStatus}, spacecraftClass = {self.spacecraftClass}, owner = {self.owner}, operator = {self.operator}>"
     
     
 class Material(db.Model):
@@ -744,6 +805,10 @@ class Material(db.Model):
     mineral = db.Column(db.Boolean, nullable=False)
     
     preciousMaterial = db.Column(db.Boolean, nullable=False)
+    
+    def __repr__(self):
+        
+        return f"<Material #{self.uid} name = {self.name}> "
     
     
 class Movie(db.Model):
@@ -789,6 +854,10 @@ class Movie(db.Model):
     
     usReleaseDate = db.Column(db.Text, nullable=True)
     
+    def __repr__(self):
+        
+        return f"<Movie #{self.uid} title = {self.title}, releaseDate = {self.usReleaseDate}>"
+    
     
 # Todo load in the shows information by series, season episode in that order
 
@@ -821,6 +890,9 @@ class Series(db.Model):
     
     companies_uid = db.Column(db.String, db.ForeignKey('companies.uid'), nullable=True)
     
+    def __repr__(self):
+        
+        return f"<Series #{self.uid} title = {self.title}, abbreviation = {self.abbreviation}>"
     
 class Season(db.Model):
     """Creates an instance of a season based off of the series table"""
@@ -836,6 +908,10 @@ class Season(db.Model):
     seasonNumber = db.Column(db.Integer, nullable=False)
     
     numberOfEpisodes = db.Column(db.Integer, nullable=True)
+    
+    def __repr__(self):
+        
+        return f"<Season #{self.uid} title = {self.title}, seasonNumber = {self.seasonNumber}>"
     
     
 class Episode(db.Model):
@@ -877,3 +953,6 @@ class Episode(db.Model):
     
     series_uid = db.Column(db.String, db.ForeignKey('series.uid'), nullable=True)
     
+    def __repr__(self):
+        
+        return f"<Episode #{self.uid} title = {self.title}, episodeNumber = {self.episodeNumber}>"

@@ -14,7 +14,7 @@ def seed_users():
     db.create_all()
 
     # Get the path to the users.csv file based on the location of this file
-    users_csv = os.path.join(os.path.dirname(__file__), '..', 'seed', 'fake_users.csv')
+    users_csv = os.path.join(os.path.dirname(__file__), '..', 'seed', 'users.csv')
     with open(users_csv) as users:
         user_dicts = list(DictReader(users))
         for user_dict in user_dicts:

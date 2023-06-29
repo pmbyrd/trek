@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %} Animals {% endblock %}
+{% block content %}
+    <h1>Animals</h1>
+    <h2>Testing the animals page</h2>
+    <!-- This link should take us to an animal page -->
+    <!-- Show a list of 10 different Animals -->
+    {% for animal in animals%}
+        <!-- Add a 20 page pagination -->
+        <a href="/quadrants/animals/{{animal.id}}">{{animal.name}}</a>
+        
+    {% endfor %}
+{% endblock %}

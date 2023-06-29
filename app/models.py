@@ -21,7 +21,7 @@ class User(db.Model):
     
     email = db.Column(db.Text, nullable=False, unique=True)
     
-    image = db.Column(db.Text, nullable=False, default=DEFAULT_IMAGE_URL)
+    avatar = db.Column(db.Text, nullable=False, default=DEFAULT_IMAGE_URL)
     
     password = db.Column(db.Text, nullable=False)
     
@@ -33,12 +33,12 @@ class User(db.Model):
     def __repr__(self):
         return f"<User #{self.id}: {self.username}, {self.email}>"
 
-    def __init__(self, username, first_name, last_name, email, password, bio, location, created_at, image=None):
+    def __init__(self, username, first_name, last_name, email, password, bio, location, avatar=None):
         self.username = username
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
-        self.image = image or DEFAULT_IMAGE_URL
+        self.avatar = avatar or DEFAULT_IMAGE_URL
         self.password = password
         self.bio = bio
         self.location = location
