@@ -27,7 +27,7 @@ def seed_animals():
     print("Animal added to database.")
 
 def seed_astronomical_object():
-    """Gets the json file and adds the data to the database"""
+    """Gets the json file and adds the astronomical object data to the database"""
     db.drop_all()
     db.create_all()
     
@@ -40,60 +40,40 @@ def seed_astronomical_object():
             json_file.close()
     print("Astronomical Object added to database.")
     
-# with open('data/astronomicalObject.json') as json_file:
-#     data = json.load(json_file)
-#     for astronomicalObject in data:
-#         astronomicalObject = AstronomicalObject(**astronomicalObject)
-#         db.session.add(astronomicalObject)
-#         db.session.commit()
-#         json_file.close()
+def seed_location():
+    """Gets the json file and adds the location data to the database"""
 
-# print("Astronomical Object added to database.")
-# def seed_title():
-#     """Gets the json file and adds the data to the database"""
-#     with open('app/data/title.json') as json_file:
-#         data = json.load(json_file)
-#         for title in data:
-#             title = Title(**title)
-#             db.session.add(title)
-#             db.session.commit()
-#             json_file.close()
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/location.json') as json_file:
+        data = json.load(json_file)
+        for location in data:
+            location = Location(**location)
+            db.session.add(location)
+            db.session.commit()
+            json_file.close()
             
-# seed_title()
-# print("Added titles to the database")
+    print("Location added to database.")
+    
+    
+def seed_character():
+    """Gets the json file and adds the character data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/character.json') as json_file:
+        data = json.load(json_file)
+        for character in data:
+            character = Character(**character)
+            db.session.add(character)
+            db.session.commit()
+            json_file.close()
+    
+    print("Character added to database.")
 
 
-# with open('data/title.json') as json_file:
-#     data = json.load(json_file)
-#     for title in data:
-#         title = Title(**title)
-#         db.session.add(title)
-#         db.session.commit()
-#         json_file.close()
 
-# print("Title added to database.")
-        
-        
-        
-
-# with open('data/location.json') as json_file:
-#     data = json.load(json_file)
-#     for location in data:
-#         location = Location(**location)
-#         db.session.add(location)
-#         db.session.commit()
-#         json_file.close()
-
-# print("Location added to database.")
-        
-
-# with open('data/character.json') as json_file:
-#     data = json.load(json_file)
-#     for character in data:
-#         character = Character(**character)
-#         db.session.add(character)
-#         db.session.commit()
-#         json_file.close()
 
 # print("Character added to database.")
         
