@@ -1,11 +1,6 @@
 """This module contains the Star Trek models for the database."""
 
-from models import db
-
-    
-
-
-
+from app.extensions import db
 
 class Animal(db.Model):
     """Creates an instance of animal for the table in the database"""
