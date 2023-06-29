@@ -643,7 +643,7 @@ class Species(db.Model):
     alternateReality = db.Column(db.Boolean, nullable=False)
     
     # *homeworld and quadrant must be referenced to the astronomicalObjects table when not null it is a foreign key the data is json and must handle the reading the data from the json object
-    astronomicalObects_uid = db.Column(db.String, db.ForeignKey('astronomicalObjects.uid'), nullable=True)
+    astronomicalObjects_uid = db.Column(db.String, db.ForeignKey('astronomicalObjects.uid'), nullable=True)
     
     def __repr__(self):
         

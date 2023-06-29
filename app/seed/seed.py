@@ -72,209 +72,285 @@ def seed_character():
     
     print("Character added to database.")
 
+def seed_performer():
+    """Gets the json file and seeds the performer data to the database"""
 
-
-
-# print("Character added to database.")
-        
-        
-# with open ('data/performer.json') as json_file:
-#     data = json.load(json_file)
-#     for performer in data:
-#         performer = Performer(**performer)
-#         db.session.add(performer)
-#         db.session.commit()
-#         json_file.close()
-
-# print("Performer added to database.")
-        
-        
-# with open('data/element.json') as json_file:
-#     data = json.load(json_file)
-#     for element in data:
-#         element = Element(**element)
-#         db.session.add(element)
-#         db.session.commit()
-#         json_file.close()
-          
-# print("Element added to database.")
-
-
-# with open('data/conflict.json') as json_file:
-#     data = json.load(json_file)
-#     for conflict in data:
-#         conflict = Conflict(**conflict)
-#         db.session.add(conflict)
-#         db.session.commit()
-#         json_file.close()
+    db.drop_all()
+    db.create_all()
     
-# print("Conflict added to database.")
+    with open ('app/data/performer.json') as json_file:
+        data = json.load(json_file)
+        for performer in data:
+            performer = Performer(**performer)
+            db.session.add(performer)
+            db.session.commit()
+            json_file.close()
+
+    print("Performer added to database.")
 
 
-# with open('data/weapon.json') as json_file:
-#     data = json.load(json_file)
-#     for weapon in data:
-#         weapon = Weapon(**weapon)
-#         db.session.add(weapon)
-#         db.session.commit()
-#         json_file.close()
+def seed_element():
+    """Gets the json file and adds the element data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/element.json') as json_file:
+        data = json.load(json_file)
+        for element in data:
+            element = Element(**element)
+            db.session.add(element)
+            db.session.commit()
+            json_file.close()
+    print("Element added to database.")
+       
         
-# print("Weapon added to database.")
+def seed_conflict():
+    """Gets the json file and adds the conflict data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/conflict.json') as json_file:
+        data = json.load(json_file)
+        for conflict in data:
+            conflict = Conflict(**conflict)
+            db.session.add(conflict)
+            db.session.commit()
+            json_file.close()
+            
+    print("Conflict added to database.")
+    
+    
+def seed_weapon():
+    """Gets the json file and adds the weapon data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/weapon.json') as json_file:
+        data = json.load(json_file)
+        for weapon in data:
+            weapon = Weapon(**weapon)
+            db.session.add(weapon)
+            db.session.commit()
+            json_file.close()
+            
+    print("Weapon added to database.")
+    
+    
+def seed_food():
+    """Gets the json file and adds the food data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/food.json') as json_file:
+        data = json.load(json_file)
+        for food in data:
+            food = Food(**food)
+            db.session.add(food)
+            db.session.commit()
+            json_file.close()
+            
+    print("Food added to database.")
+
+def seed_technology():
+    """Gets the json file and adds the technology data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/technology.json') as json_file:
+        data = json.load(json_file)
+        for technology in data:
+            technology = Technology(**technology)
+            db.session.add(technology)
+            db.session.commit()
+            json_file.close()
+            
+    print("technology added to database.")
+
+def seed_company():
+    """Gets the json file and adds the company data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/company.json') as json_file:
+        data = json.load(json_file)
+        for company in data:
+            company = Company(**company)
+            db.session.add(company)
+            db.session.commit()
+            json_file.close()
+    
+    print("Company added to database.")
+
+def seed_staff():
+    """Gets the json file and seeds the staff data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/staff.json') as json_file:
+        data = json.load(json_file)
+        for staff in data:
+            staff = Staff(**staff)
+            db.session.add(staff)
+            db.session.commit()
+            json_file.close()
+            
+    print("Staff added to database.")
+
+def seed_species():
+    """Gets the json file and seeds the species data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/species.json') as json_file:
+        data = json.load(json_file)
+        for species in data:
+            species = Species(**species)
+            db.session.add(species)
+            db.session.commit()
+            json_file.close()
+    
+    print("Species added to database.")
+
+def seed_organization():
+    """Gets json file and seeds the organization data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/organization.json') as json_file:
+        data = json.load(json_file)
+        for organization in data:
+            organization = Organization(**organization)
+            db.session.add(organization)
+            db.session.commit()
+            json_file.close()
+            
+    print("Organization added to database.")
+
+
+def seed_occupation():
+    """Gets the json file and seeds the occupation data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/occupation.json') as json_file:
+        data = json.load(json_file)
+        for occupation in data:
+            occupation = Occupation(**occupation)
+            db.session.add(occupation)
+            db.session.commit()
+            json_file.close()
+            
+    print("Occupation added to database.")
+
+
+
+def seed_spacecraft():
+    """Gets the json file and seeds the spacecraft data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/spacecraftClass.json') as json_file:
+        data = json.load(json_file)
+        for spacecraftClass in data:
+            spacecraftClass = SpacecraftClass(**spacecraftClass)
+            db.session.add(spacecraftClass)
+            db.session.commit()
+            json_file.close()
+    print("Spacecraft Class added to database.")
+
+def seed_material():
+    """Gets the json file and seeds the material data to the database"""
+    db.drop_all()
+    db.create_all()
+
+    with open('app/data/material.json') as json_file:
+        data = json.load(json_file)
+        for material in data:
+            material = Material(**material)
+            db.session.add(material)
+            db.session.commit()
+            json_file.close()
         
-        
-# with open('data/food.json') as json_file:
-#     data = json.load(json_file)
-#     for food in data:
-#         food = Food(**food)
-#         db.session.add(food)
-#         db.session.commit()
-#         json_file.close()
-        
-# print("Food added to database.")
+    print('Material added to database')
 
 
-# with open('data/technology.json') as json_file:
-#     data = json.load(json_file)
-#     for technology in data:
-#         technology = Technology(**technology)
-#         db.session.add(technology)
-#         db.session.commit()
-#         json_file.close()
-        
-# print("Technology added to database.")
+def seed_movie():
+    """Gets the json file and seeds the movie data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/movie.json') as json_file:
+        data = json.load(json_file)
+        for movie in data:
+            movie = Movie(**movie)
+            db.session.add(movie)
+            db.session.commit()
+            json_file.close()
+
+    print('Movie added to database')
 
 
-# with open('data/company.json') as json_file:
-#     data = json.load(json_file)
-#     for company in data:
-#         company = Company(**company)
-#         db.session.add(company)
-#         db.session.commit()
-#         json_file.close()
-        
-# print("Company added to database.")
+def seed_series():
+    """Gets the json file and seeds the series data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/series.json') as json_file:
+        data = json.load(json_file)
+        for series in data:
+            series = Series(**series)
+            db.session.add(series)
+            db.session.commit()
+            json_file.close()
+#   
+    print('Series added to database')
 
 
-# with open('data/staff.json') as json_file:
-#     data = json.load(json_file)
-#     for staff in data:
-#         staff = Staff(**staff)
-#         db.session.add(staff)
-#         db.session.commit()
-#         json_file.close()
-
-# print("Staff added to database.")
-
-# with open('data/species.json') as json_file:
-#     data = json.load(json_file)
-#     for species in data:
-#         species_obj = Species(**species)
-#         db.session.merge(species_obj)
-#     db.session.commit()
-#     json_file.close()
-
-        
-# print("Species added to database.")
+def seed_season():
+    """Gets the json file and seeds the season data to the database"""
+    db.drop_all()
+    db.create_all()
+    with open('app/data/season.json') as json_file:
+        data = json.load(json_file)
+        for season in data:
+            season = Season(**season)
+            db.session.add(season)
+            db.session.commit()
+            json_file.close()
+            
+    print('Season added to database')
 
 
-# with open('data/organization.json') as json_file:
-#     data = json.load(json_file)
-#     for organization in data:
-#         organization = Organization(**organization)
-#         db.session.add(organization)
-#         db.session.commit()
-#         json_file.close()
-        
-# print("Organization added to database.")
+def seed_episode():
+    """Gets the json file and seeds the episode data to the database"""
+    db.drop_all()
+    db.create_all()
+    with open('app/data/episode.json') as json_file:
+        data = json.load(json_file)
+        for episode in data:
+            episode = Episode(**episode)
+            db.session.add(episode)
+            db.session.commit()
+            json_file.close()
+    # 
+    print('Episode added to database')
+    
+def seed_title():
+    """Gets the json file and seeds the .title data to the database"""
+    
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/title.json') as json_file:
+        data = json.load(json_file)
+        for title in data:
+            title = Title(**title)
+            db.session.add(title)
+            db.session.commit()
+            json_file.close()
+            
+    print('Title added to database')
 
-
-# with open('data/occupation.json') as json_file:
-#     data = json.load(json_file)
-#     for occupation in data:
-#         occupation = Occupation(**occupation)
-#         db.session.add(occupation)
-#         db.session.commit()
-#         json_file.close()
-        
-# print("Occupation added to database.")
-
-
-# with open('data/spacecraftClass.json') as json_file:
-#     data = json.load(json_file)
-#     for spacecraftClass in data:
-#         spacecraftClass = SpacecraftClass(**spacecraftClass)
-#         db.session.add(spacecraftClass)
-#         db.session.commit()
-#         json_file.close()
-        
-# print("Spacecraft Class added to database.")
-
-   
-# with open('data/spacecraft.json') as json_file:
-#     data = json.load(json_file)
-#     for spacecraft in data:
-#         spacecraft = Spacecraft(**spacecraft)
-#         db.session.add(spacecraft)
-#         db.session.commit()
-#         json_file.close()
-        
-# print('Spacecraft added to database')
-
-
-# with open('data/material.json') as json_file:
-#     data = json.load(json_file)
-#     for material in data:
-#         material = Material(**material)
-#         db.session.add(material)
-#         db.session.commit()
-#         json_file.close()
-        
-# print('Material added to database')
-
-
-# with open('data/movie.json') as json_file:
-#     data = json.load(json_file)
-#     for movie in data:
-#         movie = Movie(**movie)
-#         db.session.add(movie)
-#         db.session.commit()
-#         json_file.close()
-        
-# print('Movie added to database')
-
-
-# with open('data/series.json') as json_file:
-#     data = json.load(json_file)
-#     for series in data:
-#         series = Series(**series)
-#         db.session.add(series)
-#         db.session.commit()
-#         json_file.close()
-
-# print('Series added to database')
-
-
-# with open('data/season.json') as json_file:
-#     data = json.load(json_file)
-#     for season in data:
-#         season = Season(**season)
-#         db.session.add(season)
-#         db.session.commit()
-#         json_file.close()
-
-
-# with open('data/episode.json') as json_file:
-#     data = json.load(json_file)
-#     for episode in data:
-#         episode = Episode(**episode)
-#         db.session.add(episode)
-#         db.session.commit()
-#         json_file.close()
-
-# print('Episode added to database')
-
-# if __name__ == "__main__":
-#     print ("Database populated successfully")
 
 
 
