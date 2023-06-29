@@ -24,20 +24,44 @@ def seed_animals():
             db.session.add(animal)
             db.session.commit()
             json_file.close()
-seed_animals()
-print("Added animals to the database")
+    print("Animal added to database.")
 
-
-
-# with open('data/animal.json') as json_file:
+def seed_astronomical_object():
+    """Gets the json file and adds the data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/astronomicalObject.json') as json_file:
+        data = json.load(json_file)
+        for astronomicalObject in data:
+            astronomicalObject = AstronomicalObject(**astronomicalObject)
+            db.session.add(astronomicalObject)
+            db.session.commit()
+            json_file.close()
+    print("Astronomical Object added to database.")
+    
+# with open('data/astronomicalObject.json') as json_file:
 #     data = json.load(json_file)
-#     for animal in data:
-#         title = Animal(**animal)
-#         db.session.add(animal)
+#     for astronomicalObject in data:
+#         astronomicalObject = AstronomicalObject(**astronomicalObject)
+#         db.session.add(astronomicalObject)
 #         db.session.commit()
 #         json_file.close()
-        
-# print("Animal added to database.")
+
+# print("Astronomical Object added to database.")
+# def seed_title():
+#     """Gets the json file and adds the data to the database"""
+#     with open('app/data/title.json') as json_file:
+#         data = json.load(json_file)
+#         for title in data:
+#             title = Title(**title)
+#             db.session.add(title)
+#             db.session.commit()
+#             json_file.close()
+            
+# seed_title()
+# print("Added titles to the database")
+
 
 # with open('data/title.json') as json_file:
 #     data = json.load(json_file)
@@ -50,15 +74,6 @@ print("Added animals to the database")
 # print("Title added to database.")
         
         
-# with open('data/astronomicalObject.json') as json_file:
-#     data = json.load(json_file)
-#     for astronomicalObject in data:
-#         astronomicalObject = AstronomicalObject(**astronomicalObject)
-#         db.session.add(astronomicalObject)
-#         db.session.commit()
-#         json_file.close()
-
-# print("Astronomical Object added to database.")
         
 
 # with open('data/location.json') as json_file:

@@ -67,6 +67,23 @@ def create_app(config_class=Config):
                 seed_animals()
                 print('Seeded the database.')
                 
+    @app.cli.command('seed-trek-astronomical-object-db')
+    def seed_trek_astronomical_object_db():
+        """Adds seed data to the database."""
+        with app.app_context():
+            if app.config['ENV'] == 'development':
+                from app.seed.seed import seed_astronomical_object
+                seed_astronomical_object()
+                print('Seeded the database.')
+    # @app.cli.command('seed-trek-title-db')
+    # def seed_trek_titles():
+    #     """Adds seed data to the database."""
+    #     with app.app_context():
+    #         if app.config['ENV'] == 'development':
+    #             from app.seed.seed import seed_title
+    #             seed_title()
+    #             print('Seeded the database.')
+                
     @app.cli.command('drop-db')
     def drop_db():
         """Drops the database."""
