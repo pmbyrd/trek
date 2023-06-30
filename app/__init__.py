@@ -31,6 +31,10 @@ def create_app(config_class=Config):
     app.register_blueprint(users)
     from app.quadrants import quadrants
     app.register_blueprint(quadrants)
+    from app.about import about
+    app.register_blueprint(about)
+    from app.movies import movies
+    app.register_blueprint(movies)
 
     @app.route('/test/')
     def test_page():
