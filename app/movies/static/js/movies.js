@@ -22,7 +22,7 @@ async function getMovies() {
 async function getMovie(movieTitle) {
     try {
         const res = await axios.get(`${OMDBAPI}&t=${movieTitle}`);
-        const movie = res.data
+        let movie = res.data
         return movie = {
             title: movie.Title,
             year: movie.Year,
@@ -40,7 +40,36 @@ async function getMovie(movieTitle) {
     }
 }
 
-
+async function displayMovies() {
+    console.debug('displayMovies');
+    try {
+        let movies = await getMovies();
+        console.log(movies)
+        //map over each movie and create a card for each movie
+        $moviesContainer.empty();
+        for (let movie of movies) {
+            let movieData = await getMovie(movie)
+            console.log(movieData)
+            let $movieCard = $(`
+            <div class="card" style="width: 18rem;">
+                <img src="${movieData.poster}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${movieData.title}</h5>
+                    <p class="card-text">${movieData.plot}</p>
+                    <p class="card-text">${movieData.genre}</p>
+                    <p class="card-text">${movieData.director}</p>
+                    <p class="card-text">${movieData.released}</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+            `)
+            $moviesContainer.append($movieCard)
+        }       
+    } catch (error) {
+        console.log(error)
+    }
+    
+}
 
 
 
