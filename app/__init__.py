@@ -35,6 +35,8 @@ def create_app(config_class=Config):
     app.register_blueprint(about)
     from app.movies import movies
     app.register_blueprint(movies)
+    from app.shows import shows
+    app.register_blueprint(shows)
 
     @app.route('/test/')
     def test_page():
@@ -46,6 +48,7 @@ def create_app(config_class=Config):
     def init_db():
         """Initialize the database."""
         with app.app_context():
+            db.create_all()
             print('Initialized the database.') 
             
     @app.cli.command('print-db')
