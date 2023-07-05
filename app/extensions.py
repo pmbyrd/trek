@@ -12,9 +12,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_seeder import FlaskSeeder
+from flask_script import Manager
 
 
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
 seeder = FlaskSeeder()
+manager = Manager()
