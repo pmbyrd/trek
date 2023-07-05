@@ -1,16 +1,16 @@
-"""Summary: This file contains the routes for the quadrants blueprint.
+"""Summary: This file contains the routes for the universe blueprint.
 """
 
 # Make sure to import the blueprint
-from app.quadrants import quadrants
+from app.universe import universe
 from flask import render_template
 from app.star_trek_models import Animal
 
-@quadrants.route('/')
+@universe.route('/')
 def index():
-    return render_template('quadrants.html')
+    return render_template('universe.html')
 
-@quadrants.route('/animals')
+@universe.route('/animals')
 def show_animals():
     animals = Animal.query.all()
     return render_template('animals.html', animals=animals)

@@ -243,8 +243,23 @@ def seed_occupation():
     print("Occupation added to database.")
 
 
-
 def seed_spacecraft():
+    """Gets the json file and seeds the spacecraft data to the database"""
+    db.drop_all()
+    db.create_all()
+    
+    with open('app/data/spacecraft.json') as json_file:
+        data = json.load(json_file)
+        for spacecraft in data:
+            spacecraft = Spacecraft(**spacecraft)
+            db.session.add(spacecraft)
+            db.session.commit()
+            json_file.close()
+    print("Spacecraft  added to database.")
+
+
+
+def seed_spacecraft_class():
     """Gets the json file and seeds the spacecraft data to the database"""
     db.drop_all()
     db.create_all()
@@ -350,6 +365,7 @@ def seed_title():
             json_file.close()
             
     print('Title added to database')
+
 
 
 

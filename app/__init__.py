@@ -29,8 +29,8 @@ def create_app(config_class=Config):
     app.register_blueprint(posts)
     from app.users import users
     app.register_blueprint(users)
-    from app.quadrants import quadrants
-    app.register_blueprint(quadrants)
+    from app.universe import universe
+    app.register_blueprint(universe)
     from app.about import about
     app.register_blueprint(about)
     from app.movies import movies
@@ -48,13 +48,15 @@ def create_app(config_class=Config):
     def init_db():
         """Initialize the database."""
         with app.app_context():
-            db.create_all()
+            db.create_all
             print('Initialized the database.') 
             
     @app.cli.command('print-db')
     def print_db():
         """Shows the database."""
         print(db)
+        
+        
         
     @app.cli.command('seed-db')
     def seed_db():
@@ -210,7 +212,15 @@ def create_app(config_class=Config):
                 from app.seed.seed import seed_spacecraft
                 seed_spacecraft()
                 print('Seeded the database.')
-                
+    @app.cli.command('seed-trek-spacecraft-class-db')
+    def seed_trek_spacecraft_class_db():
+        """Adds seed data to the database."""
+        with app.app_context():
+            if app.config['ENV'] == 'development':
+                from app.seed.seed import seed_spacecraft_class
+                seed_spacecraft_class()
+                print('Seeded the database.')
+                    
     @app.cli.command('seed-trek-material-db')
     def seed_trek_material_db():
         """Adds seed data to the database."""
@@ -272,7 +282,14 @@ def create_app(config_class=Config):
             db.drop_all()
             print('Dropped the database.')           
     
-    
+    @app.cli.command('create-db')
+    def create_db():
+        """Creates the database."""
+        with app.app_context():
+            db.create_all()
+            print('Created the database.')
     
     return app
+
+
 
