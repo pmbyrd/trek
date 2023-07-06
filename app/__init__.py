@@ -14,6 +14,8 @@ from config import Config
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///trek'
+
     db.init_app(app)
     migrate.init_app(app, db)
     seeder.init_app(app, db)
@@ -44,31 +46,7 @@ def create_app(config_class=Config):
 
     
     
-    @app.cli.command('init-db')
-    def init_db():
-        """Initialize the database."""
-        with app.app_context():
-            db.create_all
-            print('Initialized the database.') 
-            
-    @app.cli.command('print-db')
-    def print_db():
-        """Shows the database."""
-        print(db)    
-    
-    @app.cli.command('drop-db')
-    def drop_db():
-        """Drops the database."""
-        with app.app_context():
-            db.drop_all()
-            print('Dropped the database.')           
-    
-    @app.cli.command('create-db')
-    def create_db():
-        """Creates the database."""
-        with app.app_context():
-            db.create_all()
-            print('Created the database.')
+
         
         
 
@@ -81,14 +59,14 @@ def create_app(config_class=Config):
     #             seed_db()
     #             print('Seeded the database.')
     
-    # @app.cli.command('seed-trek-animal-db')
-    # def seed_trek_db():
-    #     """Adds seed data to the database."""
-    #     with app.app_context():
-    #         if app.config['ENV'] == 'development':
-    #             from app.seed.seed import seed_animals
-    #             seed_animals()
-    #             print('Seeded the database.')
+    @app.cli.command('seed-trek-animal-db')
+    def seed_trek_db():
+        """Adds seed data to the database."""
+        with app.app_context():
+            if app.config['ENV'] == 'development':
+                from app.seed.seed import seed_animals
+                seed_animals()
+                print('Seeded the database.')
                 
     # @app.cli.command('seed-trek-astronomical-object-db')
     # def seed_trek_astronomical_object_db():
@@ -244,14 +222,14 @@ def create_app(config_class=Config):
     #             seed_material()
     #             print('Seeded the database.')
   
-    # @app.cli.command('seed-trek-movie-db')
-    # def seed_trek_movie_db():
-    #     """Adds seed data to the database."""
-    #     with app.app_context():
-    #         if app.config['ENV'] == 'development':
-    #             from app.seed.seed import seed_movie
-    #             seed_movie()
-    #             print('Seeded the database.')
+    @app.cli.command('seed-trek-movie-db')
+    def seed_trek_movie_db():
+        """Adds seed data to the database."""
+        with app.app_context():
+            if app.config['ENV'] == 'development':
+                from app.seed.seed import seed_movie
+                seed_movie()
+                print('Seeded the database.')
      
     # @app.cli.command('seed-trek-series-db')
     # def seed_trek_series_db():
@@ -288,6 +266,7 @@ def create_app(config_class=Config):
     #             from app.seed.seed import seed_title
     #             seed_title()
     #             print('Seeded the database.')
+    
                 
     return app
 

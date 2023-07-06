@@ -1,5 +1,7 @@
 from datetime import datetime
 from random import uniform
+from extensions import db
+
 
 
 def get_random_datetime(year_gap=5):
@@ -10,3 +12,4 @@ def get_random_datetime(year_gap=5):
     random_timestamp = uniform(then.timestamp(), now.timestamp())
 
     return datetime.fromtimestamp(random_timestamp)
+

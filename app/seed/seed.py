@@ -12,10 +12,12 @@ from app.extensions import db
 from app.star_trek_models import Animal, Title, Location, AstronomicalObject, Character, Performer, Element, Conflict, Weapon, Food, Technology, Company, Staff, Species, Organization, Occupation, SpacecraftClass, Spacecraft, Material, Movie, Series, Season, Episode
 from app import create_app
 
+
+#NOTE I am currently dropping all tables with creating new ones. This is not ideal for production.
+
+
 def seed_animals():
     """Gets the json file and adds the data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/animal.json') as json_file:
         data = json.load(json_file)
@@ -28,8 +30,6 @@ def seed_animals():
 
 def seed_astronomical_object():
     """Gets the json file and adds the astronomical object data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/astronomicalObject.json') as json_file:
         data = json.load(json_file)
@@ -43,8 +43,6 @@ def seed_astronomical_object():
 def seed_location():
     """Gets the json file and adds the location data to the database"""
 
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/location.json') as json_file:
         data = json.load(json_file)
@@ -59,8 +57,6 @@ def seed_location():
     
 def seed_character():
     """Gets the json file and adds the character data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/character.json') as json_file:
         data = json.load(json_file)
@@ -75,8 +71,6 @@ def seed_character():
 def seed_performer():
     """Gets the json file and seeds the performer data to the database"""
 
-    db.drop_all()
-    db.create_all()
     
     with open ('app/data/performer.json') as json_file:
         data = json.load(json_file)
@@ -91,8 +85,6 @@ def seed_performer():
 
 def seed_element():
     """Gets the json file and adds the element data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/element.json') as json_file:
         data = json.load(json_file)
@@ -106,8 +98,6 @@ def seed_element():
         
 def seed_conflict():
     """Gets the json file and adds the conflict data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/conflict.json') as json_file:
         data = json.load(json_file)
@@ -122,8 +112,6 @@ def seed_conflict():
     
 def seed_weapon():
     """Gets the json file and adds the weapon data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/weapon.json') as json_file:
         data = json.load(json_file)
@@ -138,8 +126,6 @@ def seed_weapon():
     
 def seed_food():
     """Gets the json file and adds the food data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/food.json') as json_file:
         data = json.load(json_file)
@@ -153,8 +139,6 @@ def seed_food():
 
 def seed_technology():
     """Gets the json file and adds the technology data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/technology.json') as json_file:
         data = json.load(json_file)
@@ -168,8 +152,6 @@ def seed_technology():
 
 def seed_company():
     """Gets the json file and adds the company data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/company.json') as json_file:
         data = json.load(json_file)
@@ -183,8 +165,6 @@ def seed_company():
 
 def seed_staff():
     """Gets the json file and seeds the staff data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/staff.json') as json_file:
         data = json.load(json_file)
@@ -198,8 +178,6 @@ def seed_staff():
 
 def seed_species():
     """Gets the json file and seeds the species data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/species.json') as json_file:
         data = json.load(json_file)
@@ -213,8 +191,6 @@ def seed_species():
 
 def seed_organization():
     """Gets json file and seeds the organization data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/organization.json') as json_file:
         data = json.load(json_file)
@@ -229,8 +205,6 @@ def seed_organization():
 
 def seed_occupation():
     """Gets the json file and seeds the occupation data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/occupation.json') as json_file:
         data = json.load(json_file)
@@ -245,8 +219,6 @@ def seed_occupation():
 
 def seed_spacecraft():
     """Gets the json file and seeds the spacecraft data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/spacecraft.json') as json_file:
         data = json.load(json_file)
@@ -261,8 +233,6 @@ def seed_spacecraft():
 
 def seed_spacecraft_class():
     """Gets the json file and seeds the spacecraft data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/spacecraftClass.json') as json_file:
         data = json.load(json_file)
@@ -275,8 +245,6 @@ def seed_spacecraft_class():
 
 def seed_material():
     """Gets the json file and seeds the material data to the database"""
-    db.drop_all()
-    db.create_all()
 
     with open('app/data/material.json') as json_file:
         data = json.load(json_file)
@@ -291,8 +259,6 @@ def seed_material():
 
 def seed_movie():
     """Gets the json file and seeds the movie data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/movie.json') as json_file:
         data = json.load(json_file)
@@ -307,8 +273,6 @@ def seed_movie():
 
 def seed_series():
     """Gets the json file and seeds the series data to the database"""
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/series.json') as json_file:
         data = json.load(json_file)
@@ -323,8 +287,6 @@ def seed_series():
 
 def seed_season():
     """Gets the json file and seeds the season data to the database"""
-    db.drop_all()
-    db.create_all()
     with open('app/data/season.json') as json_file:
         data = json.load(json_file)
         for season in data:
@@ -338,8 +300,6 @@ def seed_season():
 
 def seed_episode():
     """Gets the json file and seeds the episode data to the database"""
-    db.drop_all()
-    db.create_all()
     with open('app/data/episode.json') as json_file:
         data = json.load(json_file)
         for episode in data:
@@ -353,8 +313,6 @@ def seed_episode():
 def seed_title():
     """Gets the json file and seeds the .title data to the database"""
     
-    db.drop_all()
-    db.create_all()
     
     with open('app/data/title.json') as json_file:
         data = json.load(json_file)
