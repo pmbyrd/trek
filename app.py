@@ -3,7 +3,7 @@ from app.extensions import db
 
 app = create_app()
     
+    
 if __name__ == '__main__':
-    app.run(debug=True)
-    app.app_context().push()
+    print(app.url_map)
     

@@ -10,8 +10,6 @@ from app.models import User, DEFAULT_IMAGE_URL
 
 def seed_users():
     # Define a list of random first and last names to choose from
-    db.drop_all()
-    db.create_all()
 
     # Get the path to the users.csv file based on the location of this file
     users_csv = os.path.join(os.path.dirname(__file__), '..', 'seed', 'users.csv')

@@ -1,6 +1,6 @@
 from datetime import datetime
 from random import uniform
-from extensions import db
+
 
 
 
@@ -13,3 +13,7 @@ def get_random_datetime(year_gap=5):
 
     return datetime.fromtimestamp(random_timestamp)
 
+def test_hello(name):
+    name = input('What is your name? ')
+    yield f'Hello {name}!'
+    

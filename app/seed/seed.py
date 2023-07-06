@@ -16,6 +16,7 @@ from app import create_app
 #NOTE I am currently dropping all tables with creating new ones. This is not ideal for production.
 
 
+
 def seed_animals():
     """Gets the json file and adds the data to the database"""
     
@@ -323,7 +324,6 @@ def seed_title():
             json_file.close()
             
     print('Title added to database')
-
 
 
 
