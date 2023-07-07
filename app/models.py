@@ -3,27 +3,29 @@
 
 from app.extensions import db
 from flask_login import UserMixin
-from flask_bcrypt import Bcrypt
+from werkzeug.security import generate_password_hash, check_password_hash
+
 DEFAULT_IMAGE_URL = "https://loading.io/icon/tpi8gu"
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     """Creates a user model for the database."""
     __tablename__ = "users"
     
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     
-    username = db.Column(db.Text, nullable=False, unique=True)
+    username = db.Column(db.Text(32), nullable=False, unique=True)
     
-    first_name= db.Column(db.Text, nullable=False)
+    first_name= db.Column(db.Text(32), nullable=False)
     
-    last_name = db.Column(db.Text, nullable=False)
+    last_name = db.Column(db.Text(32), nullable=False)
     
     email = db.Column(db.Text, nullable=False, unique=True)
     
     avatar = db.Column(db.Text, nullable=False, default=DEFAULT_IMAGE_URL)
     
     password = db.Column(db.Text, nullable=False)
+    # password_hash = db.Column(db.String(64), nullable=False)
     
     bio = db.Column(db.Text, nullable=True)
     
@@ -42,5 +44,11 @@ class User(db.Model):
         self.password = password
         self.bio = bio
         self.location = location
-#NOTE - Do no use the previous class methods when trying to implement a login system.
     
+        
+#NOTE - Do no use the previous class methods when trying to implement a login system.
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)

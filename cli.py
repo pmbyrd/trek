@@ -3,44 +3,64 @@
 
 import os
 import click
-from app.extensions import db   
+from app.extensions import db
 from app import create_app
 app = create_app()
 # Register the custom commands with the application
+
+
 def register(app):
     @app.cli.group()
     def custom_db():
         """Custom database commands."""
         pass
-    
+
     @custom_db.command("create")
     def create_db():
         """Create the database."""
         db.create_all()
         print('Database created.')
-        
+
     @custom_db.command("drop")
     def drop_db():
         """Drop the database."""
         db.drop_all()
         print('Database dropped.')
-        
+
     @custom_db.command("print")
     def print_db():
         """Print the database."""
         print(db)
-        
+
     @custom_db.command("init")
     def init_db():
         """Initialize the database."""
         db.create_all()
         print('Database initialized.')
-    
+
+    # @custom_db.command("drop-table")
+    # @click.argument("table_name")
+    # def drop_table(table_name):
+    #     """Drops a table from the database."""
+    #     import logging
+    #     from sqlalchemy import MetaData
+    #     from sqlalchemy import create_engine
+    #     from sqlalchemy.engine.url import URL
+    #     from sqlalchemy.ext.declarative import declarative_base
+
+    #     engine = create_engine(URL(**DATABASE))
+    #     base = declarative_base()
+    #     metadata = MetaData(engine, reflect=True)
+    #     table = metadata.tables.get(table_name)
+    #     if table is not None:
+    #         logging.info(f'Deleting {table_name} table')
+            # base.metadata.drop_all(engine, [table], checkfirst=True)
+
     @app.cli.group()
     def seed_db():
         """Seed the database."""
         pass
-    
+
     @seed_db.command("animal")
     def seed_animal():
         """Seed the animal table."""
@@ -49,7 +69,7 @@ def register(app):
                 from app.seed.seed import seed_animals
                 seed_animals()
                 print('Seeded the database.')
-    
+
     @seed_db.command("astronomical")
     def seed_astronomical_object():
         """Seed the astronomical_object table."""
@@ -58,7 +78,7 @@ def register(app):
                 from app.seed.seed import seed_astronomical_object
                 seed_astronomical_object()
                 print('Seeded the database.')
-                
+
     @seed_db.command("location")
     def seed_location():
         """Seed the location table."""
@@ -67,7 +87,7 @@ def register(app):
                 from app.seed.seed import seed_location
                 seed_location()
                 print('Seeded the database.')
-                
+
     @seed_db.command("character")
     def seed_character():
         """Seed the character table."""
@@ -76,7 +96,7 @@ def register(app):
                 from app.seed.seed import seed_character
                 seed_character()
                 print('Seeded the database.')
-                
+
     @seed_db.command("performer")
     def seed_performer():
         """Seed the performer table."""
@@ -94,7 +114,7 @@ def register(app):
                 from app.seed.seed import seed_element
                 seed_element()
                 print('Seeded the database.')
-                
+
     @seed_db.command("conflict")
     def seed_conflict():
         """Seed the conflict table."""
@@ -103,8 +123,7 @@ def register(app):
                 from app.seed.seed import seed_conflict
                 seed_conflict()
                 print('Seeded the database.')
-                
-    
+
     @seed_db.command("weapon")
     def seed_weapon():
         """Seed the weapon table."""
@@ -113,7 +132,7 @@ def register(app):
                 from app.seed.seed import seed_weapon
                 seed_weapon()
                 print('Seeded the database.')
-                
+
     @seed_db.command("food")
     def seed_food():
         """Seed the food table."""
@@ -122,7 +141,7 @@ def register(app):
                 from app.seed.seed import seed_food
                 seed_food()
                 print('Seeded the database.')
-    
+
     @seed_db.command("technology")
     def seed_technology():
         """Seed the technology table."""
@@ -131,7 +150,7 @@ def register(app):
                 from app.seed.seed import seed_technology
                 seed_technology()
                 print('Seeded the database.')
-    
+
     @seed_db.command("company")
     def seed_company():
         """Seed the company table."""
@@ -140,7 +159,6 @@ def register(app):
                 from app.seed.seed import seed_company
                 seed_company()
                 print('Seeded the database.')
-  
 
     @seed_db.command("staff")
     def seed_staff():
@@ -150,8 +168,7 @@ def register(app):
                 from app.seed.seed import seed_staff
                 seed_staff()
                 print('Seeded the database.')
-  
-    
+
     @seed_db.command("species")
     def seed_species():
         """Seed the species table."""
@@ -159,9 +176,8 @@ def register(app):
             if app.config['ENV'] == 'development':
                 from app.seed.seed import seed_species
                 seed_species()
-                print('Seeded the database.')    
-    
-    
+                print('Seeded the database.')
+
     @seed_db.command("organization")
     def seed_organization():
         """Seed the organization table."""
@@ -169,9 +185,8 @@ def register(app):
             if app.config['ENV'] == 'development':
                 from app.seed.seed import seed_organization
                 seed_organization()
-                print('Seeded the database.')  
-                
-    
+                print('Seeded the database.')
+
     @seed_db.command("occupation")
     def seed_occupation():
         """Seed the occupation table."""
@@ -179,8 +194,8 @@ def register(app):
             if app.config['ENV'] == 'development':
                 from app.seed.seed import seed_occupation
                 seed_occupation()
-                print('Seeded the database.')              
-                
+                print('Seeded the database.')
+
     @seed_db.command("spacecraft")
     def seed_spacecraft():
         """Seed the spacecraft table."""
@@ -189,7 +204,7 @@ def register(app):
                 from app.seed.seed import seed_spacecraft
                 seed_spacecraft()
                 print('Seeded the database.')
-                
+
     @seed_db.command("spacecraft-class")
     def seed_spacecraft_class():
         """Seed the spacecraftClass table."""
@@ -198,8 +213,7 @@ def register(app):
                 from app.seed.seed import seed_spacecraft_class
                 seed_spacecraft_class()
                 print('Seeded the database.')
-                
-    
+
     @seed_db.command("material")
     def seed_material():
         """Seed the material table."""
@@ -208,7 +222,7 @@ def register(app):
                 from app.seed.seed import seed_material
                 seed_material()
                 print('Seeded the database.')
-                
+
     @seed_db.command("movie")
     def seed_movie():
         """Seed the movie table."""
@@ -217,7 +231,7 @@ def register(app):
                 from app.seed.seed import seed_movie
                 seed_movie()
                 print('Seeded the database.')
-                
+
     @seed_db.command("series")
     def seed_series():
         """Seed the series table."""
@@ -226,7 +240,7 @@ def register(app):
                 from app.seed.seed import seed_series
                 seed_series()
                 print('Seeded the database.')
-                
+
     @seed_db.command("season")
     def seed_season():
         """Seed the season table."""
@@ -235,7 +249,7 @@ def register(app):
                 from app.seed.seed import seed_season
                 seed_season()
                 print('Seeded the database.')
-                
+
     @seed_db.command("episode")
     def seed_episode():
         """Seed the episode table."""
@@ -244,8 +258,7 @@ def register(app):
                 from app.seed.seed import seed_episode
                 seed_episode()
                 print('Seeded the database.')
-                
-    
+
     @seed_db.command("title")
     def seed_title():
         """Seed the title table."""
@@ -254,6 +267,12 @@ def register(app):
                 from app.seed.seed import seed_title
                 seed_title()
                 print('Seeded the database.')
-                
-                
-    
+
+    @seed_db.command("users")
+    def seed_users():
+        """Seed the users table."""
+        with app.app_context():
+            if app.config['ENV'] == 'development':
+                from app.seed.users_seed import seed_users
+                seed_users()
+                print('Seeded the database.')

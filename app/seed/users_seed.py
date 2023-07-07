@@ -28,9 +28,6 @@ def seed_users():
                 print(f"Added user {username} with email {email}")
         db.session.commit()
 
-def seed_db():
-    seed_users()
 
-seed_db()
 
 
