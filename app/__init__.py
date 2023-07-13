@@ -5,7 +5,7 @@ import os
 # Add the parent directory of the 'app' module to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from app.extensions import db, migrate, api
+from app.extensions import db, migrate, api, oauth
 
 from config import Config
 
@@ -14,6 +14,9 @@ from config import Config
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
+
+    # Initialize Flask extensions here
+    oauth.init_app(app)
 
     with app.app_context():
         db.init_app(app)
