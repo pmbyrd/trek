@@ -1,6 +1,9 @@
 from app.auth import auth
 from flask import render_template, abort, session, redirect, url_for
 from app.extensions import oauth
+import os
+import pathlib
+
 
 
 def login_is_required(function):
@@ -29,9 +32,9 @@ def logout():
 
 @auth.route('/google/')
 def google():
-
-    GOOGLE_CLIENT_ID = 'YOUR GOOGLE CLIENT ID'
-    GOOGLE_CLIENT_SECRET = 'YOUR GOOGLE CLIENT SECRET'
+    # import the google client id and secret from the environment variables
+    GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
+    GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET')
 
     CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
     oauth.register(
