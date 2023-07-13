@@ -3,7 +3,7 @@
 from flask import render_template, request, jsonify
 from app.shows import shows
 from app import db
-from app.star_trek_models import Series
+from app.models.star_trek_models import Series
 from flask_restful import Resource, Api
 from flask import jsonify
 

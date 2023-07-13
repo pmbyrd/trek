@@ -38,23 +38,6 @@ def register(app):
         db.create_all()
         print('Database initialized.')
 
-    # @custom_db.command("drop-table")
-    # @click.argument("table_name")
-    # def drop_table(table_name):
-    #     """Drops a table from the database."""
-    #     import logging
-    #     from sqlalchemy import MetaData
-    #     from sqlalchemy import create_engine
-    #     from sqlalchemy.engine.url import URL
-    #     from sqlalchemy.ext.declarative import declarative_base
-
-    #     engine = create_engine(URL(**DATABASE))
-    #     base = declarative_base()
-    #     metadata = MetaData(engine, reflect=True)
-    #     table = metadata.tables.get(table_name)
-    #     if table is not None:
-    #         logging.info(f'Deleting {table_name} table')
-            # base.metadata.drop_all(engine, [table], checkfirst=True)
 
     @app.cli.group()
     def seed_db():

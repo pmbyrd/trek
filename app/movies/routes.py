@@ -3,7 +3,7 @@
 from flask import render_template, request, jsonify
 from app.movies import movies
 from app import db
-from app.star_trek_models import Movie
+from app.models.star_trek_models import Movie
 from flask_restful import Resource, Api
 from flask import jsonify
 from app.movies.schemas import MovieSchema

@@ -4,7 +4,7 @@
 # Make sure to import the blueprint
 from app.universe import universe
 from flask import render_template
-from app.star_trek_models import Animal
+from app.models.star_trek_models import Animal
 
 @universe.route('/')
 def index():

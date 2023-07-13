@@ -3,7 +3,7 @@
 
 from flask import render_template
 from app.users import users
-from app.models import User
+from app.models.models import User
 from app.extensions import db
 
 @users.route('/')
