@@ -57,6 +57,7 @@ def google():
 def google_auth():
     token = oauth.google.authorize_access_token()
     user = oauth.google.parse_id_token(token)
+    import pdb; pdb.set_trace()
     print(" Google User ", user)
     return redirect('/')
 
