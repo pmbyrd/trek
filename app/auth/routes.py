@@ -2,7 +2,7 @@ from app.auth import auth
 from flask import render_template, abort, session, redirect, url_for
 from app.extensions import oauth
 import os
-import pathlib
+from authlib.common.security import generate_token
 
 
 
@@ -50,13 +50,17 @@ def google():
     # Redirect to google_auth function
     redirect_uri = url_for('auth.google_auth', _external=True)
     print(redirect_uri)
+    session['nonce'] = generate_token()
+    import pdb; pdb.set_trace()
     return oauth.google.authorize_redirect(redirect_uri)
 
-
+#FIXME - this is not working 304 error when attempting to login with google 
+#NOTE - Something in relation to the redirect_uri and token and that the google client can not be found.
 @auth.route('/google/auth/')
 def google_auth():
     token = oauth.google.authorize_access_token()
     user = oauth.google.parse_id_token(token)
+    session['user'] = user
     import pdb; pdb.set_trace()
     print(" Google User ", user)
     return redirect('/')
