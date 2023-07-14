@@ -5,7 +5,7 @@ import os
 # Add the parent directory of the 'app' module to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from app.extensions import db, migrate, api, oauth, ma
+from app.extensions import db, migrate, oauth, ma
 
 from config import Config
 
@@ -14,13 +14,13 @@ from config import Config
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
-
     # Initialize Flask extensions here
     oauth.init_app(app)
-    ma.init_app(app)
 
     with app.app_context():
+        # NOTE- Order does matter the initialization process
         db.init_app(app)
+        ma.init_app(app)
     migrate.init_app(app, db)
 
     # Initialize Flask extensions here
@@ -42,7 +42,7 @@ def create_app(config_class=Config):
     app.register_blueprint(movies)
     from app.shows import shows
     app.register_blueprint(shows)
-    from app.api.resources import api_bp as api
+    from app.api import api
     app.register_blueprint(api)
 
     @app.route('/test/')
