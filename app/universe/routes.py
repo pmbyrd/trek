@@ -6,6 +6,7 @@ from app.universe import universe
 from flask import render_template, jsonify, request
 from app.models.star_trek_models import Animal
 from app.schemas.animal_schema import AnimalSchema
+from app.helpers import ma_article
 
 @universe.route('/')
 def index():
@@ -17,12 +18,12 @@ def show_animals():
     return render_template('animals.html', animals=animals)
 
 
-@universe.route('/animals/results', methods=['POST'])
+@universe.route('/animals/results', methods=['GET','POST'])
 def animal_results():
     """Returns a single animal from the database"""
     # gets the animals from the front end that needed images to be scraped via beautiful soup
     response = request.get_json()
-    # extract the response from the request
-    print(response)
-    # import pdb; pdb.set_trace()
+    # extract the
+    print(response["data"])
+    
     return jsonify(response)

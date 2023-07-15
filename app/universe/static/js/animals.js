@@ -3,7 +3,6 @@ const baseURL = "http://127.0.0.1:5000/";
 
 const $animalContainer = $(".animals");
 
-console.log($animalContainer);
 $animalContainer.append("Hello from animals.js");
 
 async function getAnimals() {
@@ -36,7 +35,6 @@ async function sortAnimals() {
 		//try returning avian as a separate array
 		// const avian = [...animals.filter((animal) => animal.avian === true)]
 		const avian = [...animals.filter((animal) => animal.avian === true)];
-		console.log(typeof avian[0]);
 		const canine = animals.filter((animal) => animal.canine === true);
 		const feline = animals.filter((animal) => animal.feline === true);
 		const earthAnimal = animals.filter((animal) => animal.earthAnimal === true);
@@ -72,7 +70,6 @@ async function sampleAnimals(animals) {
 const sampleAnimalsResults = Promise.resolve(sampleAnimals()).then(function (
 	result
 ) {
-	console.log(result);
 	return result;
 });
 
@@ -81,7 +78,11 @@ async function postSampleAnimals() {
 		const result = await sampleAnimalsResults; // Wait for the sampleAnimalsResults promise to resolve
 		const response = await axios.post(`${baseURL}/universe/animals/results`, {
 			data: result,
-		});
+			Headers: {
+				"Content-Type": "application/json",
+			},
+		}
+		);
 		console.log(response);
 	} catch (error) {
 		console.error(error, error.message);
