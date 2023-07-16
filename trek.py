@@ -2,9 +2,9 @@ import cli
 from app import create_app
 from app.extensions import db
 from app.models.models import User
+from app.models.animal_models import Animal
 from app.models.star_trek_models import (
     AstronomicalObject, 
-    Animal,
     Character,
     Element,
     Location,

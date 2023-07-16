@@ -2,27 +2,27 @@
 
 from app.extensions import db
 
-class Animal(db.Model):
-    """Creates an instance of animal for the table in the database"""
+# class Animal(db.Model):
+#     """Creates an instance of animal for the table in the database"""
 
-    __tablename__ = "animals"
+#     __tablename__ = "animals"
     
-    name = db.Column(db.Text, nullable=False)
+#     name = db.Column(db.Text, nullable=False)
     
-    uid = db.Column(db.Text, primary_key=True)
+#     uid = db.Column(db.Text, primary_key=True)
     
-    earthAnimal = db.Column(db.Boolean, nullable=False) 
+#     earthAnimal = db.Column(db.Boolean, nullable=False) 
     
-    earthInsect = db.Column(db.Boolean, nullable=False)
+#     earthInsect = db.Column(db.Boolean, nullable=False)
     
-    avian = db.Column(db.Boolean, nullable=False)    
+#     avian = db.Column(db.Boolean, nullable=False)    
     
-    canine = db.Column(db.Boolean, nullable=False)
+#     canine = db.Column(db.Boolean, nullable=False)
     
-    feline = db.Column(db.Boolean, nullable=False)
+#     feline = db.Column(db.Boolean, nullable=False)
     
-    def __repr__(self):
-        return f"<Animal #{self.uid}: name = {self.name}>"
+#     def __repr__(self):
+#         return f"<Animal #{self.uid}: name = {self.name}>"
     
 class AstronomicalObject(db.Model):
     """Creates an instance of an astronomical object for the database."""

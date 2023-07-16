@@ -1,7 +1,7 @@
 """Summary: Creates an animal schema class that can marshall the data from the backend to the frontend
 """
 from app.extensions import ma
-from app.models.star_trek_models import Animal
+from app.models.animal_models import Animal
 from flask_marshmallow.fields import URLFor, Hyperlinks
 
 
@@ -19,3 +19,14 @@ class AnimalSchema(ma.SQLAlchemyAutoSchema):
             }
                 
         })
+
+    # Look up all the fields that are in the model and expose them
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
+            self.fields = None
+            self.load_only = ()
+            self.dump_only = ()
+            self.exclude = ()
+            self.additional = ()
+            
+        

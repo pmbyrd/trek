@@ -6,7 +6,7 @@ Making it a centralized location for the api to get data from the database.
 
 from app.api import api
 from flask import jsonify
-from app.models.star_trek_models import Animal
+from app.models.animal_models import Animal
 from app.schemas.animal_schema import AnimalSchema
 
 @api.route('/api/test')
