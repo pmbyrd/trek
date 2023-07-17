@@ -5,6 +5,21 @@ const $animalContainer = $(".animals");
 
 $animalContainer.append("Hello from animals.js");
 
+// get the souped animals from the backend
+async function get_sample_animals() {
+	try {
+		const response = await axios.get(`${baseURL}/universe/animals/samples`);
+		console.log(response)
+		const animals = JSON.parse(response.data);
+		console.table(animals);
+		return animals;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+get_sample_animals();
+
 async function getAnimals() {
 	try {
 		const response = await axios.get(`${baseURL}/api/animals`);
@@ -22,7 +37,7 @@ async function getAnimals() {
 		return animals;
 		//map over the animals and return the ids
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 	}
 }
 getAnimals();
@@ -73,25 +88,24 @@ const sampleAnimalsResults = Promise.resolve(sampleAnimals()).then(function (
 	return result;
 });
 
-async function postSampleAnimals() {
-	try {
-		const result = await sampleAnimalsResults; // Wait for the sampleAnimalsResults promise to resolve
-		const response = await axios.post(`${baseURL}/universe/animals/results`, {
-			data: result,
-			Headers: {
-				"Content-Type": "application/json",
-			},
-		}
-		);
-		console.log(response);
-	} catch (error) {
-		console.error(error, error.message);
-	}
-}
+// async function postSampleAnimals() {
+// 	try {
+// 		const result = await sampleAnimalsResults; // Wait for the sampleAnimalsResults promise to resolve
+// 		const response = await axios.post(`${baseURL}/universe/animals/results`, {
+// 			data: result,
+// 			Headers: {
+// 				"Content-Type": "application/json",
+// 			},
+// 		}
+// 		);
+// 		console.log(response);
+// 	} catch (error) {
+// 		console.error(error, error.message);
+// 	}
+// }
 
-postSampleAnimals();
+// postSampleAnimals();
 
-let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 Array.prototype.sample = function (n) {
 	let result = new Array(n),
 		len = this.length,
@@ -105,7 +119,6 @@ Array.prototype.sample = function (n) {
 	}
 	return result;
 };
-console.log(array.sample(5));
 
 async function renderAnimals() {
 	try {
@@ -132,4 +145,4 @@ async function renderAnimals() {
 	}
 }
 
-renderAnimals();
+// renderAnimals();

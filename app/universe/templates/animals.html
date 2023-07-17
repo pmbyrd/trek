@@ -3,19 +3,15 @@ content %}
 <h1>Animals</h1>
 <h2>Testing the animals page</h2>
 
-<div class="container animals"></div>
+<div class="container animals">
+    
+</div>
 
 <!-- Add the javascript to this page -->
 {% block scripts %}
 <script
 	src="{{ url_for('universe.static', filename='js/animals.js')}}"
 	defer
-></script>
-<script src="
-https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"
-    integrity="sha256-4+Yq+QlZBjxu+Hgq13g3Q0w3nq+X6q0qQJXH+Z8+0qk="
-    crossorigin="anonymous"
-    defer
 ></script>
 
 {% endblock %} {% endblock %}

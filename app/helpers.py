@@ -25,7 +25,7 @@ class MemoryAlphaScraper:
         url = f"{self.base_url}/{self.name}"
         html_content = urllib.request.urlopen(url)
         soup = Soup(html_content, 'html.parser')
-        print(url)
+        # print(url)
         return soup
     
     def __repr__(self):
@@ -35,18 +35,21 @@ class MemoryAlphaScraper:
         try: 
             url = self.soup()
             aside = url.find("aside")
-            print(aside)
+            image_class = url.find("div", {"class": "image"})        
+            # print(aside)
             if aside:
                 print("aside found")
                 try:
                     images = aside.findAll("img")
                     if images:
                         images = [{image.get("src"), image.get("alt")} for image in images]
-                        print(images)
+                        return images
                     else:
                         print("No image found in the 'aside' section.")
                 except AttributeError as e:
                     print(e)
+                    
+            
         except AttributeError as e:
             print(e)
     
@@ -59,7 +62,8 @@ class MemoryAlphaScraper:
             if content:
                 content_raw = [p.get_text() for p in content]
                 content = [p.get_text().replace("\n", " ") for p in content]
-                print(content)
+                return content
+                # print(content)
                 # NOTE in the value being returned the links to other pages are in escaped characters
                 # !those links to be stored some where and then user can click them go to the page of that object
             else:

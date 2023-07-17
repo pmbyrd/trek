@@ -9,6 +9,19 @@ from app.models.animal_models import Animal
 from app.schemas.animal_schema import AnimalSchema
 from app.helpers import MemoryAlphaScraper, replace_space
 
+import json
+
+class CustomJSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        # Implement custom serialization for specific objects
+        if isinstance(o, YourCustomClass):
+            # Return a dictionary representation of your custom object
+            return o.to_dict()  # Replace 'to_dict()' with your custom method
+
+        # For any other data types, use the default serialization
+        return super().default(o)
+
+# Then, when calling 'jsonify', specify the custom encoder:
 
 @universe.route('/')
 def index():
@@ -39,28 +52,26 @@ def animal_index():
     ) for animal in category_animals[:5]]
 
     scrapped_animals = []
+  
     print(random_animal_names_sample)
     try:
         for name in random_animal_names_sample:
-            print(name)
             formatted_name = replace_space(name)
-            print(formatted_name)
             souped_animal = MemoryAlphaScraper(formatted_name)
             images = MemoryAlphaScraper.get_images(souped_animal)
             content = MemoryAlphaScraper.get_content(souped_animal)
 
-            scrapped_animal = {
-                'name': name,
-                'images': images,
-                'content': content
-            }
-
+            scrapped_animal = [name, images, content]
+            print(scrapped_animal)
             scrapped_animals.append(scrapped_animal)
     except AttributeError as e:
         print(e)
         pass
+    
+    
+    
 
-    return jsonify(random_animal_names_sample, scrapped_animals)
+    return jsonify(json.dumps(scrapped_animals))
 
 
 
