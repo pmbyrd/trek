@@ -6,6 +6,15 @@ import requests
 import urllib.request
 
 
+def replace_space(string):
+    """Replace spaces with underscores"""
+    if " " in string:
+        string = string.replace(" ", "_")
+    else:
+        string = string
+    
+    return string
+    
 
 class MemoryAlphaScraper:
     def __init__(self, name, base_url="https://memory-alpha.fandom.com/wiki"):

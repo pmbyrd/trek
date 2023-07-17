@@ -8,3 +8,4 @@ class AstronomicalObjectSchema(ma.SQLAlchemyAutoSchema):
         include_fk = True
         
         
+        
