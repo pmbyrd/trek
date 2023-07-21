@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %} {{ title }} {% endblock %}
+{% block content %}
+
+<h1>{{ animal.name }}</h1>
+
+<div class="container" id="{{animal.name}}">
+<div class="card">
+    <img class="card-img-top" src="{{image}}" alt="">
+    <div class="card-body">
+        <h4 class="card-title">{{animal.name}}</h4>
+        <p class="card-text">{{info}}</p>
+    </div>
+</div>
+</div>
+
+{% endblock %}

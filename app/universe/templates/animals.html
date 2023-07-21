@@ -1,9 +1,20 @@
-{% extends "base.html" %} {% block title %} Animals {% endblock %} {% block
-content %}
+{% extends "base.html" %}
+ {% block title %} {{title}} {% endblock %}
+  {% block content %}
 <h1>Animals</h1>
 <h2>Testing the animals page</h2>
 
-<div class="container animals"></div>
+<div class="container animals">
+	<!-- list all animals and paginate based on alphabetical order -->
+	{% for animal in animals %}
+	<div class="row">
+		<div class="col-12">
+			<a href="/universe/animals/{{ animal.name }}">
+				<h3>{{ animal.name }}</h3>
+			</a>
+		</div>
+		{% endfor %}
+</div>
 
 <!-- Add the javascript to this page -->
 {% block scripts %}
@@ -12,4 +23,5 @@ content %}
 	defer
 ></script>
 
-{% endblock %} {% endblock %}
+{% endblock %}
+ {% endblock %}

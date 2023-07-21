@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %} Characters {% endblock %}
+{% block content %}
+
+<h1>Characters</h1>
+<p>Testing the characters page</p>
+
+<!-- iterate over all the characters -->
+{% for character in characters %}
+{{ character.name }}
+{% endfor %}
+
+{% endblock %}

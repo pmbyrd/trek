@@ -45,6 +45,7 @@ class MemoryAlphaScraper:
         for p in all_paragraphs:
             content = [p.get_text().replace("\n", " ") for p in all_paragraphs]
 
+        return content
 # class MemoryAlphaScraper:
 #     def __init__(self, name, base_url="https://memory-alpha.fandom.com/wiki"):
 #         self.base_url = base_url
