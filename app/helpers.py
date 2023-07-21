@@ -14,13 +14,12 @@ def replace_space(string):
         string = string
     
     return string
-    
 
 class MemoryAlphaScraper:
     def __init__(self, name, base_url="https://memory-alpha.fandom.com/wiki"):
         self.base_url = base_url
         self.name = name
-
+        
     def soup(self):
         url = f"{self.base_url}/{self.name}"
         html_content = urllib.request.urlopen(url)
@@ -28,121 +27,177 @@ class MemoryAlphaScraper:
         # print(url)
         return soup
     
-    def __repr__(self):
-        return f"<MemoryAlphaScraper {self.name}>"
-    
+    # NOTE at the moment this is good enough
     def get_images(self):
-        try: 
-            url = self.soup()
-            aside = url.find("aside")
-            image_class = url.find("div", {"class": "image"})        
-            # print(aside)
-            if aside:
-                print("aside found")
-                try:
-                    images = aside.findAll("img")
-                    if images:
-                        images = [{image.get("src"), image.get("alt")} for image in images]
-                        return images
-                    else:
-                        print("No image found in the 'aside' section.")
-                except AttributeError as e:
-                    print(e)
-                    
-            
-        except AttributeError as e:
-            print(e)
+        soup = self.soup()
+        images = []
+        for i in soup.find_all("img"):
+            if i.has_attr('data-src'):
+                images.append(i['data-src'])
+        return images
     
-    def get_content(self):
-        url = self.soup()
-        result = url.find("div", {"class": "mw-parser-output"})
-        # 
-        try:
-            content = result.findAll("p")
-            if content:
-                content_raw = [p.get_text() for p in content]
-                content = [p.get_text().replace("\n", " ") for p in content]
-                return content
-                # print(content)
-                # NOTE in the value being returned the links to other pages are in escaped characters
-                # !those links to be stored some where and then user can click them go to the page of that object
-            else:
-                print("No content found in the 'div' section.")
-        
-        except AttributeError as e:
-            print(e)
-        
-        
+    def get_paragraphs(self):
+        content = []
+        soup = self.soup()
+        # get the content by looking for the all items in the div with the id of content
+        content_raw = soup.find("div", id="content")
+        all_paragraphs = content_raw.find_all("p")
+        for p in all_paragraphs:
+            content = [p.get_text().replace("\n", " ") for p in all_paragraphs]
 
-# dukat = MemoryAlphaScraper("Dukat")
-# dukat.soup()
-# dukat.get_images()
-# dukat.get_content()
-# picard = MemoryAlphaScraper("Jean-Luc_Picard")
-# picard.get_content()
+# class MemoryAlphaScraper:
+#     def __init__(self, name, base_url="https://memory-alpha.fandom.com/wiki"):
+#         self.base_url = base_url
+#         self.name = name
 
-    # def scrape_image(self):
+#     def soup(self):
+#         url = f"{self.base_url}/{self.name}"
+#         html_content = urllib.request.urlopen(url)
+#         soup = Soup(html_content, 'html.parser')
+#         # print(url)
+#         return soup
+    
+#     def __repr__(self):
+#         return f"<MemoryAlphaScraper {self.name}>"
+    
+#     def get_images(self):
+#         try: 
+#             url = self.soup()
+#             aside = url.find("aside")
+#             image_class = url.find("div", {"class": "image"})        
+#             # print(aside)
+#             if aside:
+#                 print("aside found")
+#                 try:
+#                     images = aside.findAll("img")
+#                     if images:
+#                         images = [{image.get("src"), image.get("alt")} for image in images]
+#                         return images
+#                     else:
+#                         print("No image found in the 'aside' section.")
+#                 except AttributeError as e:
+#                     print(e)
+#             elif image_class:
+#                     if image_class:
+#                         images = [{image.get("src"), image.get("alt")} for image in image_class]
+#                     else:
+#                         print("No image found in the 'image' section.")
+#         except AttributeError as e:
+#             print(e)
+    
+#     def get_content(self):
+#         url = self.soup()
+#         result = url.find("div", {"class": "mw-parser-output"})
+#         # 
+#         try:
+#             content = result.findAll("p")
+#             if content:
+#                 content_raw = [p.get_text() for p in content]
+#                 content = [p.get_text().replace("\n", " ") for p in content]
+#                 print(content)
+#                 return content
+#             else:
+#                 print("No content found in the 'div' section.")
+#                 return None    
+#                 # print(content)
+#                 # NOTE in the value being returned the links to other pages are in escaped characters
+#                 # !those links to be stored some where and then user can click them go to the page of that object
         
-    #     url = self.soup
-    #     aside = self.soup.find("aside")
-    #     if aside:
-    #         print("aside found")
-    #         try:
-    #             images = aside.findAll("img")
-    #             if images:
-    #                 first_image = images[0]
-    #                 image_src = first_image.get("src")
-    #                 image_alt = first_image.get("alt")
-    #                 print("First Image URL:", image_src)
-    #                 print("First Image Alt Text:", image_alt)
-    #                 first_image = {
-    #                     image_alt,
-    #                     image_src
-    #                 }
-    #                 return first_image
-    #             else:
-    #                 print("No image found in the 'aside' section.")
-    #         except AttributeError as e:
-    #             print(e)
+#         except AttributeError as e:
+#             print(e)
+            
+#     def get_links(self):
+#         url = self.soup()
+#         # The href needs to contain /wiki/<name> and the title needs to be the name
+
+#     def get_all_headlines(self):
+#         url = self.soup()
+#         result = url.find("div", {"class": "mw-parser-output"})
+#         headlines = result.findAll(["h2", "h3"])
+#         headlines = [headline.get_text() for headline in headlines]
+#         return headlines
+    
+#     def get_all_titles(self):
+#         url = self.soup()
+#         result = url.find("div", {"class": "mw-parser-output"})
+#         titles = result.findAll("title")
+#         print(titles)
+
+# class MemomryAlphaShowScraper(MemoryAlphaScraper):
+#     """A child class of MemoryAlphaScraper that scrapes the information for a show"""    
+#     def get_summary(self):
+#         """Gets the summary of the show"""
+        
+# dukat = MemoryAlphaScraper("Dukat") #!This is the object instance
+# dukat.get_all_titles()
+# # dukat.soup()
+# # dukat.get_images()
+# # dukat.get_content()
+# # picard = MemoryAlphaScraper("Jean-Luc_Picard")
+# # picard.get_content()
+
+#     # def scrape_image(self):
+        
+#     #     url = self.soup
+#     #     aside = self.soup.find("aside")
+#     #     if aside:
+#     #         print("aside found")
+#     #         try:
+#     #             images = aside.findAll("img")
+#     #             if images:
+#     #                 first_image = images[0]
+#     #                 image_src = first_image.get("src")
+#     #                 image_alt = first_image.get("alt")
+#     #                 print("First Image URL:", image_src)
+#     #                 print("First Image Alt Text:", image_alt)
+#     #                 first_image = {
+#     #                     image_alt,
+#     #                     image_src
+#     #                 }
+#     #                 return first_image
+#     #             else:
+#     #                 print("No image found in the 'aside' section.")
+#     #         except AttributeError as e:
+#     #             print(e)
                 
-    # def get_content(self, name):
-    #     print("get_content")
+#     # def get_content(self, name):
+#     #     print("get_content")
         
 
-    # def ma_article(self, url, content_format="xml", content_nodes=("h2", "h3", "p", "b", "ul"), browse=False):
-    #     # Make a GET request to the URL
-    #     response = requests.get(url)
-    #     response.raise_for_status()  # Raise an exception for unsuccessful requests
+#     # def ma_article(self, url, content_format="xml", content_nodes=("h2", "h3", "p", "b", "ul"), browse=False):
+#     #     # Make a GET request to the URL
+#     #     response = requests.get(url)
+#     #     response.raise_for_status()  # Raise an exception for unsuccessful requests
 
-    #     # Parse the HTML content using BeautifulSoup
-    #     soup = BeautifulSoup(response.content, content_format)
+#     #     # Parse the HTML content using BeautifulSoup
+#     #     soup = BeautifulSoup(response.content, content_format)
 
-    #     # Find the desired content nodes
-    #     nodes = soup.find_all(content_nodes)
+#     #     # Find the desired content nodes
+#     #     nodes = soup.find_all(content_nodes)
 
-    #     # Print or process the extracted content nodes
-    #     for node in nodes:
-    #         print(node.get_text())  # Example: printing the text content of each node
+#     #     # Print or process the extracted content nodes
+#     #     for node in nodes:
+#     #         print(node.get_text())  # Example: printing the text content of each node
 
-    #     # Optionally, browse the extracted content
-    #     if browse:
-    #         # Perform some actions to browse the extracted content
-    #         pass
-
-
+#     #     # Optionally, browse the extracted content
+#     #     if browse:
+#     #         # Perform some actions to browse the extracted content
+#     #         pass
 
 
 
-def get_random_datetime(year_gap=5):
-    """Get a random datetime within the last few years."""
 
-    now = datetime.now()
-    then = now.replace(year=now.year - year_gap)
-    random_timestamp = uniform(then.timestamp(), now.timestamp())
 
-    return datetime.fromtimestamp(random_timestamp)
+# def get_random_datetime(year_gap=5):
+#     """Get a random datetime within the last few years."""
 
-def test_hello(name):
-    name = input('What is your name? ')
-    yield f'Hello {name}!'
+#     now = datetime.now()
+#     then = now.replace(year=now.year - year_gap)
+#     random_timestamp = uniform(then.timestamp(), now.timestamp())
+
+#     return datetime.fromtimestamp(random_timestamp)
+
+# def test_hello(name):
+#     name = input('What is your name? ')
+#     yield f'Hello {name}!'
     

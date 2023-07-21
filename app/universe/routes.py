@@ -7,21 +7,14 @@ from app.universe import universe
 from flask import render_template, jsonify, request
 from app.models.animal_models import Animal
 from app.schemas.animal_schema import AnimalSchema
+from app.schemas.astronomical_objects_schema import AstronomicalObjectSchema
+from app.models.star_trek_models import AstronomicalObject
 from app.helpers import MemoryAlphaScraper, replace_space
+from app.images.defaults import tribbles
+from random import choices
 
 import json
 
-class CustomJSONEncoder(json.JSONEncoder):
-    def default(self, o):
-        # Implement custom serialization for specific objects
-        if isinstance(o, YourCustomClass):
-            # Return a dictionary representation of your custom object
-            return o.to_dict()  # Replace 'to_dict()' with your custom method
-
-        # For any other data types, use the default serialization
-        return super().default(o)
-
-# Then, when calling 'jsonify', specify the custom encoder:
 
 @universe.route('/')
 def index():
@@ -39,7 +32,7 @@ def animals():
 @universe.route('/animals/samples')
 def animal_index():
     """Returns all animals in the database and sends them as a JSON object to the front end"""
-    animals = Animal.query.all()
+    animals = AnimalSchema(many=True).dump(Animal.query.all())
     categories = {
         'canines': Animal.get_all_canine(),
         'felines': Animal.get_all_feline(),
@@ -48,31 +41,28 @@ def animal_index():
         'avians': Animal.get_all_avian()
     }
 
-    random_animal_names_sample = [animal.name for category_animals in categories.values(
-    ) for animal in category_animals[:5]]
-
-    scrapped_animals = []
-  
-    print(random_animal_names_sample)
-    try:
-        for name in random_animal_names_sample:
-            formatted_name = replace_space(name)
-            souped_animal = MemoryAlphaScraper(formatted_name)
-            images = MemoryAlphaScraper.get_images(souped_animal)
-            content = MemoryAlphaScraper.get_content(souped_animal)
-
-            scrapped_animal = [name, images, content]
-            print(scrapped_animal)
-            scrapped_animals.append(scrapped_animal)
-    except AttributeError as e:
-        print(e)
-        pass
+    for category in categories:
+        categories[category] = [animal.name for animal in categories[category]]
+        print(categories[category][:5])
+        
+    # use choices to a random animal from each animal category
+    random_animals = {
+        "canine": [choices(categories["canines"], k=3 )],
+        "feline": [choices(categories["felines"], k=3 )],
+        "earth_animal": [choices(categories["earth_animals"], k=3 )],
+        "earth_insect": [choices(categories["earth_insects"], k=3 )],
+        "avian": [choices(categories["avians"], k=3)]
+    }
     
+    # the random_animals need to be serialized before they can be sent to the front end
+    json_random_animals = json.dumps(random_animals, indent=4, sort_keys=True, default=str)
     
+    print("json random animals")
+    print(json_random_animals)
+    print("random animals")
+    print(random_animals)
     
-
-    return jsonify(json.dumps(scrapped_animals))
-
+    return jsonify(animals, json_random_animals)
 
 
 @universe.route('/animals/results', methods=['GET', 'POST'])
@@ -84,3 +74,14 @@ def animal_results():
     print(response["data"])
 
     return jsonify(response)
+
+@universe.route('/astronomical-objects')
+def astronomical_objects():
+    """Returns all astronomical objects in the database"""
+    return render_template('astronomical_objects.html')
+
+@universe.route('/astronomical-objects/samples')
+def astronomical_objects_index():
+    """Returns all astronomical objects in the database and sends them as a JSON object to the front end"""
+    astronomical_objects = AstronomicalObjectSchema(many=True).dump(AstronomicalObject.query.all())
+    return jsonify(astronomical_objects)
