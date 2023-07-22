@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %} {{title}} {% endblock %}
+{% block content %}
+
+<h1>Occupations</h1>
+<p>Testing the occupations page</p>
+
+<!-- iterate over all the occupations -->
+<ul class="occupations-list">
+    {% for occupation in occupations %}
+    <li>
+        <a href="/universe/occupations/{{ occupation.name }}">{{ occupation.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

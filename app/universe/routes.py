@@ -6,10 +6,12 @@ from flask import jsonify
 from app.universe import universe
 from flask import render_template, jsonify, request
 from app.models.animal_models import Animal
+from app.models.star_trek_models import AstronomicalObject, Character, Occupation, Organization
 from app.schemas.animal_schema import AnimalSchema
 from app.schemas.astronomical_objects_schema import AstronomicalObjectSchema
+from app.schemas.occupation_schema import OccupationSchema
 from app.schemas.character_schema import CharacterSchema
-from app.models.star_trek_models import AstronomicalObject, Character
+from app.schemas.organization_schema import OrganizationSchema
 from app.helpers import MemoryAlphaScraper, replace_space
 from app.images.defaults import tribbles
 from random import choices
@@ -79,5 +81,15 @@ def character(name):
         print(e)
     return render_template('character.html', character=character, title=name, info=info, image=image)
 
+#NOTE: The occupations route is not working at the moment
+@universe.route('/occupations')
+def occupations():
+    """Returns all occupations in the database"""
+    occupations = OccupationSchema(many=True).dump(Occupation.query.all())
+    return render_template('occupations.html', occupations=occupations, title='Occupations')
 
-
+@universe.route('/organizations')
+def organizations():
+    """Returns all organizations in the database"""
+    organizations = OrganizationSchema(many=True).dump(Organization.query.all())
+    return render_template('organizations.html', organizations=organizations, title='Organizations')

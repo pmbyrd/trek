@@ -5,4 +5,11 @@
 <h1>Astronomical Objects</h1>
 <p>Testing the astronomical objects page</p>
 
+
+<ul class="astronomical-objects-list">
+    {% for astronomical_object in astronomical_objects %}
+    <li>
+        <a href="/universe/astronomical_objects/{{ astronomical_object.name }}">{{ astronomical_object.name }}</a>
+    </li>
+    {% endfor %}
 {% endblock %}

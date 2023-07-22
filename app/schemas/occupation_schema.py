@@ -1,9 +1,10 @@
 from app.extensions import ma
-from app.models.star_trek_models import Organization
+from app.models.star_trek_models import Occupation
+from flask_marshmallow.fields import URLFor, Hyperlinks
 
-class OrganizationSchema(ma.SQLAlchemyAutoSchema):
+class OccupationSchema(ma.SQLAlchemyAutoSchema):
     class meta:
-        model = Organization
+        model = Occupation
         include_fk = True
         
         def __init__(self, **kwargs):

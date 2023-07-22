@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %} {{title}} {% endblock %}
+{% block content %}
+
+<h1>Organizations</h1>
+<p>Testing the organizations page</p>
+
+<ul class="organizations-list">
+    {% for organization in organizations %}
+    <li>
+        <a href="/universe/organizations/{{ organization.name }}">{{ organization.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
