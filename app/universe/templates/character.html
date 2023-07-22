@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %} {{title}} {% endblock %}
+{% block content %}
+
+<h1>{{ character.name }}</h1>
+
+<div class="container" id="{{character.name}}">
+<div class="card">
+    <img class="card-img-top" src="{{image}}" alt="">
+    <div class="card-body">
+        <h4 class="card-title">{{character.name}}</h4>
+        <p class="card-text">{{info}}</p>
+    </div>
+</div>
+
+{% endblock %}

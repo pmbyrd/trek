@@ -59,8 +59,25 @@ def astronomical_object(name):
     astronomical_object = AstronomicalObjectSchema().dump(AstronomicalObject.query.filter_by(name=name).first())
     return render_template('astronomical_object.html', astronomical_object=astronomical_object, title=name)
 
+# NOTE: The characters route is not working at the moment
 @universe.route('/characters')
 def characters():
     """Returns all characters in the database"""
     characters = CharacterSchema(many=True).dump(Character.query.all())
     return render_template('characters.html', characters=characters)
+
+@universe.route('/characters/<name>')
+def character(name):
+    """Returns a single character from the database"""
+    character = CharacterSchema().dump(Character.query.filter_by(name=name).first())
+    try:
+        scrapped_character = MemoryAlphaScraper(replace_space(name))
+        images = scrapped_character.get_images()
+        image = images[0] if len(images) > 0 else tribbles
+        info = scrapped_character.get_paragraphs()
+    except Exception as e:
+        print(e)
+    return render_template('character.html', character=character, title=name, info=info, image=image)
+
+
+

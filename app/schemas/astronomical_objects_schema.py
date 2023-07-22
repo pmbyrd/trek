@@ -7,5 +7,13 @@ class AstronomicalObjectSchema(ma.SQLAlchemyAutoSchema):
         model = AstronomicalObject
         include_fk = True
         
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
+            self.fields = None
+            self.load_only = ()
+            self.dump_only = ()
+            self.exclude = ()
+            self.additional = ()
+        
         
         

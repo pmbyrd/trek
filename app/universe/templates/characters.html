@@ -6,8 +6,12 @@
 <p>Testing the characters page</p>
 
 <!-- iterate over all the characters -->
-{% for character in characters %}
-{{ character.name }}
-{% endfor %}
+<ul class="characters-list">
+    {% for character in characters %}
+    <li>
+        <a href="/universe/characters/{{ character.name }}">{{ character.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
 
 {% endblock %}
