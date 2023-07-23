@@ -1,0 +1,18 @@
+{% extends "base.html" %}      
+{% block title %} {{title}} {% endblock %}         
+{% block content %}
+
+<h1>Spacecrafts</h1>
+<p>Testing the spacecrafts page</p>
+<ul class="spacecrafts-list">
+    {% for spacecraft in spacecrafts %}
+    <li>
+        <a href="/universe/spacecrafts/{{ spacecraft.name }}"
+            >{{ spacecraft.name }}</a
+        >
+    </li>
+    {% endfor %}
+
+</ul>
+    
+    {% endblock %}

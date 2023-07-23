@@ -6,12 +6,15 @@ from flask import jsonify
 from app.universe import universe
 from flask import render_template, jsonify, request
 from app.models.animal_models import Animal
-from app.models.star_trek_models import AstronomicalObject, Character, Occupation, Organization
+from app.models.star_trek_models import AstronomicalObject, Character, Occupation, Organization, SpacecraftClass, Spacecraft, Species, Technology, Weapon
 from app.schemas.animal_schema import AnimalSchema
 from app.schemas.astronomical_objects_schema import AstronomicalObjectSchema
 from app.schemas.occupation_schema import OccupationSchema
 from app.schemas.character_schema import CharacterSchema
 from app.schemas.organization_schema import OrganizationSchema
+from app.schemas.spacecraft_class_schema import SpacecraftClassSchema
+from app.schemas.spacecraft_schema import SpacecraftSchema
+from app.schemas.species_schema import SpeciesSchema
 from app.helpers import MemoryAlphaScraper, replace_space
 from app.images.defaults import tribbles
 from random import choices
@@ -87,9 +90,43 @@ def occupations():
     """Returns all occupations in the database"""
     occupations = OccupationSchema(many=True).dump(Occupation.query.all())
     return render_template('occupations.html', occupations=occupations, title='Occupations')
-
+#NOTE: the organizations route is not working at the moment
 @universe.route('/organizations')
 def organizations():
     """Returns all organizations in the database"""
     organizations = OrganizationSchema(many=True).dump(Organization.query.all())
     return render_template('organizations.html', organizations=organizations, title='Organizations')
+
+@universe.route('/organizations/<name>')
+def organization(name):
+    """Returns a single organization from the database"""
+    organization = OrganizationSchema().dump(Organization.query.filter_by(name=name).first())
+    return render_template('organization.html', organization=organization, title=name)
+
+#NOTE: The spacecrafts classes is not pulling up the correct data, it seems to be pulling for locations instead
+# 
+@universe.route('/spacecrafts-classes')
+def spacescraft_classes():
+    """Returns all spacecraft classes in the database"""
+    spacecrafts_classes = AstronomicalObjectSchema(many=True).dump(AstronomicalObject.query.all())
+    return render_template('spacecrafts_classes.html', spacecrafts_classes=spacecrafts_classes)
+
+#NOTE may not be worth implementing until I can fix the data issue
+# @universe.route('/spacecrafts-classes/<name>')
+# def spacecraft_class(name):
+#     """Returns a single spacecraft class from the database"""
+#     spacecraft_class = SpacecraftClassSchema().dump(SpacecraftClass.query.filter_by(name=name).first())
+#     return render_template('spacecraft_class.html', spacecraft_class=spacecraft_class, title=name)
+
+#NOTE data is returning all blanks at the moment
+@universe.route('/spacecrafts')
+def spacecrafts():
+    """Returns all spacecrafts in the database"""
+    spacecrafts = SpacecraftSchema(many=True).dump(Spacecraft.query.all())
+    return render_template('spacecrafts.html', spacecrafts=spacecrafts)
+#NOTE Another issue  species keeps throwing an error
+# @universe.route('/species_all')
+# def species():
+#     """Returns all species in the database"""
+#     species = SpeciesSchema(many=True).dump(Species.query.all())
+#     render_template('species.html', species=species)
