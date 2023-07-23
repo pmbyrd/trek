@@ -15,6 +15,7 @@ from app.schemas.organization_schema import OrganizationSchema
 from app.schemas.spacecraft_class_schema import SpacecraftClassSchema
 from app.schemas.spacecraft_schema import SpacecraftSchema
 from app.schemas.species_schema import SpeciesSchema
+from app.schemas.technology_schema import TechnologySchema
 from app.helpers import MemoryAlphaScraper, replace_space
 from app.images.defaults import tribbles
 from random import choices
@@ -124,9 +125,19 @@ def spacecrafts():
     """Returns all spacecrafts in the database"""
     spacecrafts = SpacecraftSchema(many=True).dump(Spacecraft.query.all())
     return render_template('spacecrafts.html', spacecrafts=spacecrafts)
-#NOTE Another issue  species keeps throwing an error
-# @universe.route('/species_all')
-# def species():
-#     """Returns all species in the database"""
-#     species = SpeciesSchema(many=True).dump(Species.query.all())
-#     render_template('species.html', species=species)
+
+# NOTE Another issue  species keeps throwing an error
+@universe.route('/species_all')
+def species():
+    """Returns all species in the database"""
+    # species_all = SpeciesSchema(many=True).dump(Species.query.all())
+    # return render_template('species_all.html', species_all=species_all)
+    species_all = Species.query.all()
+    #FIXME - Neither one of these implementations are working
+    return render_template('species_all.html')
+    
+@universe.route('/technologies')
+def technologies():
+    """Returns all technologies in the database"""
+    technologies = TechnologySchema(many=True).dump(Technology.query.all())
+    return render_template('technologies.html', technologies=technologies)

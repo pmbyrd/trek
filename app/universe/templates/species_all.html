@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %} {{title}} {% endblock %}
+{% block content %}
+<h1>Species</h1>
+<p>Testing the species page</p>
+<ul class="species-list">
+    {% for species in species_all %}
+    <li>
+        <a href="/universe/species_all/{{ species.name }}"
+            >{{ species.name }}</a
+        >
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
