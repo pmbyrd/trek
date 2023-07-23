@@ -16,6 +16,7 @@ from app.schemas.spacecraft_class_schema import SpacecraftClassSchema
 from app.schemas.spacecraft_schema import SpacecraftSchema
 from app.schemas.species_schema import SpeciesSchema
 from app.schemas.technology_schema import TechnologySchema
+from app.schemas.weapon_schema import WeaponSchema
 from app.helpers import MemoryAlphaScraper, replace_space
 from app.images.defaults import tribbles
 from random import choices
@@ -141,3 +142,9 @@ def technologies():
     """Returns all technologies in the database"""
     technologies = TechnologySchema(many=True).dump(Technology.query.all())
     return render_template('technologies.html', technologies=technologies)
+
+@universe.route('/weapons')
+def weapons():
+    """Returns all weapons in the database"""
+    weapons = WeaponSchema(many=True).dump(Weapon.query.all())
+    return render_template('weapons.html', weapons=weapons)

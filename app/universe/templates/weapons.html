@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %} {{title}} {% endblock %}
+{% block content %}
+<h1>Weapons</h1>
+<p>Testing the weapons page</p>
+<ul class="weapons-list">
+    {% for weapon in weapons %}
+    <li>
+        <a href="/universe/weapons/{{ weapon.name }}"
+            >{{ weapon.name }}</a
+        >
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
