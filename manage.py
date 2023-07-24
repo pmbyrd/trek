@@ -3,7 +3,7 @@ from flask.cli import FlaskGroup, AppGroup
 import click
 import os
 from app import create_app
-from app.helpers import get_random_datetime, test_hello
+# from app.helpers import get_random_datetime, test_hello
 app = create_app()
 
 def deploy():

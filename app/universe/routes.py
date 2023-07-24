@@ -127,7 +127,6 @@ def spacecrafts():
     spacecrafts = SpacecraftSchema(many=True).dump(Spacecraft.query.all())
     return render_template('spacecrafts.html', spacecrafts=spacecrafts)
 
-# NOTE Another issue  species keeps throwing an error
 @universe.route('/species_all')
 def species():
     """Returns all species in the database"""
@@ -135,7 +134,8 @@ def species():
     # return render_template('species_all.html', species_all=species_all)
     species_all = Species.query.all()
     #FIXME - Neither one of these implementations are working
-    return render_template('species_all.html')
+    print(Species.query.first())
+    return render_template('species_all.html', species_all=species_all)
     
 @universe.route('/technologies')
 def technologies():
@@ -143,8 +143,11 @@ def technologies():
     technologies = TechnologySchema(many=True).dump(Technology.query.all())
     return render_template('technologies.html', technologies=technologies)
 
+#NOTE weapons is also blank
 @universe.route('/weapons')
 def weapons():
     """Returns all weapons in the database"""
     weapons = WeaponSchema(many=True).dump(Weapon.query.all())
-    return render_template('weapons.html', weapons=weapons)
+    weapons_ = Weapon.query.all()
+    print(Weapon.query.first())
+    return render_template('weapons.html', weapons=weapons, weapons_=weapons_)
