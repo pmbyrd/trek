@@ -2,7 +2,7 @@
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
   <h1>Technologies</h1>
-  <ul>
+  <ul class="techonologies-list">
     {% for technology in technologies %}
       <li><a href="{{ url_for('universe.technology', name=technology.name) }}">{{ technology.name }}</a></li>
     {% endfor %}
