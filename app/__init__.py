@@ -38,10 +38,12 @@ def create_app(config_class=Config):
     app.register_blueprint(universe)
     from app.about import about
     app.register_blueprint(about)
-    from app.movies import movies
-    app.register_blueprint(movies)
-    from app.shows import shows
-    app.register_blueprint(shows)
+    from app.media import media
+    app.register_blueprint(media)
+    # from app.media import movies
+    # app.register_blueprint(movies)
+    # from app.shows import shows
+    # app.register_blueprint(shows)
     from app.api import api
     app.register_blueprint(api)
 

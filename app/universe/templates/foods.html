@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %} {{title}} {% endblock %}
+{% block content %}
+<h1>Foods</h1>
+<ul class="foods-list">
+	{% for food in foods %}
+	<li>
+		<a href="/universe/foods/{{ food.name }}">{{ food.name }}</a>
+	</li>
+	{% endfor %}
+</ul>
+{% endblock %}

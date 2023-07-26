@@ -9,4 +9,4 @@ shows = Blueprint(
     url_prefix='/shows'
     )
 
-from app.shows import routes
+from app.media import routes

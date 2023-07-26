@@ -1,0 +1,12 @@
+{% extends "base.html"%} {% block title %} {{title}} {% endblock %} {% block
+content %}
+<h1>Elements</h1>
+<p>Testing the elements page</p>
+<ul class="elements-list">
+	{% for element in elements %}
+	<li>
+		<a href="/universe/elements/{{ element.name }}">{{ element.name }}</a>
+	</li>
+	{% endfor %}
+</ul>
+{% endblock %}

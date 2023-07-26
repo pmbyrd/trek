@@ -6,7 +6,7 @@ from flask import jsonify
 from app.universe import universe
 from flask import render_template, jsonify, request
 from app.models.animal_models import Animal
-from app.models.star_trek_models import AstronomicalObject, Character, Occupation, Organization, SpacecraftClass, Spacecraft, Species, Technology, Weapon
+from app.models.star_trek_models import Material, Title, AstronomicalObject, Character,Food, Element, Location, Conflict, Occupation, Organization, SpacecraftClass, Spacecraft, Species, Technology, Weapon
 from app.schemas.animal_schema import AnimalSchema
 from app.schemas.astronomical_objects_schema import AstronomicalObjectSchema
 from app.schemas.occupation_schema import OccupationSchema
@@ -70,8 +70,9 @@ def astronomical_object(name):
 @universe.route('/characters')
 def characters():
     """Returns all characters in the database"""
-    characters = CharacterSchema(many=True).dump(Character.query.all())
-    return render_template('characters.html', characters=characters)
+    # characters = CharacterSchema(many=True).dump(Character.query.all())4
+    characters = Character.query.all()
+    return render_template('characters.html', characters=characters, title='Characters')
 
 @universe.route('/characters/<name>')
 def character(name):
@@ -86,17 +87,111 @@ def character(name):
         print(e)
     return render_template('character.html', character=character, title=name, info=info, image=image)
 
+@universe.route('/conflicts')
+def conflicts():
+    """Returns all conflicts in the database"""
+    conflicts = Conflict.query.all()
+    return render_template('conflicts.html', conflicts=conflicts, title='Conflicts')
+
+@universe.route('/conflicts/<name>')
+def conflict(name):
+    """Returns a single conflict from the database"""
+    conflict = Conflict.query.filter_by(name=name).first()
+    try:
+        scrapped_conflict = MemoryAlphaScraper(replace_space(name))
+        images = scrapped_conflict.get_images()
+        image = images[0] if len(images) > 0 else tribbles
+        info = scrapped_conflict.get_paragraphs()
+    except Exception as e:
+        print (e)
+    return render_template('conflict.html', conflict=conflict, title=name, info=info, image=image)
+
+@universe.route('/elements')
+def elements():
+    """Returns all elements in the database"""
+    elements = Element.query.all()
+    return render_template('elements.html', elements=elements, title='Elements')
+
+@universe.route('/elements/<name>')
+def element(name):
+    """Returns a single element from the database"""
+    element = Element.query.filter_by(name=name).first()
+    try:
+        scrapped_element = MemoryAlphaScraper(replace_space(name))
+        images = scrapped_element.get_images()
+        image = images[0] if len(images) > 0 else tribbles
+        info = scrapped_element.get_paragraphs()
+    except Exception as e:
+        print (e)
+    return render_template('element.html', element=element, title=name, info=info, image=image)
+
+@universe.route('/foods')
+def foods():
+    """Returns all foods in the database"""
+    foods = Food.query.all()
+    return render_template('foods.html', foods=foods, title='Foods')
+
+@universe.route('/foods/<name>')
+def food(name):
+    """Returns a single food from the database"""
+    food = Food.query.filter_by(name=name).first()
+    try:
+        scrapped_food = MemoryAlphaScraper(replace_space(name))
+        images = scrapped_food.get_images()
+        image = images[0] if len(images) > 0 else tribbles
+        info = scrapped_food.get_paragraphs()
+    except Exception as e:
+        print (e)
+    return render_template('food.html', food=food, title=name, info=info, image=image)
+
+@universe.route('/locations')
+def locations():
+    """Returns all locations in the database"""
+    locations = Location.query.all()
+    return render_template('locations.html', locations=locations, title='Locations')
+
+@universe.route('/locations/<name>')
+def location(name):
+    """Returns a single location from the database"""
+    location = Location.query.filter_by(name=name).first()
+    try:
+        scrapped_location = MemoryAlphaScraper(replace_space(name))
+        images = scrapped_location.get_images()
+        image = images[0] if len(images) > 0 else tribbles
+        info = scrapped_location.get_paragraphs()
+    except Exception as e:
+        print (e)
+    return render_template('location.html', location=location, title=name, info=info, image=image)
+
+@universe.route('/materials')
+def materials():
+    """Returns all materials in the database"""
+    materials = Material.query.all()
+    return render_template('materials.html', materials=materials, title='Materials')
+
+@universe.route('/materials/<name>')
+def material(name):
+    """Returns a single material from the database"""
+    material = Material.query.filter_by(name=name).first()
+    return render_template('material.html', material=material, title=name)
+
 #NOTE: The occupations route is not working at the moment
 @universe.route('/occupations')
 def occupations():
     """Returns all occupations in the database"""
-    occupations = OccupationSchema(many=True).dump(Occupation.query.all())
+    occupations = Occupation.query.all()
     return render_template('occupations.html', occupations=occupations, title='Occupations')
-#NOTE: the organizations route is not working at the moment
+
+@universe.route('/occupations/<name>')
+def occupation(name):
+    """Returns a single occupation from the database"""
+    occupation = Occupation.query.filter_by(name=name).first()
+    return render_template('occupation.html', occupation=occupation, title=name)
+
 @universe.route('/organizations')
 def organizations():
     """Returns all organizations in the database"""
-    organizations = OrganizationSchema(many=True).dump(Organization.query.all())
+    organizations = Organization.query.all()
     return render_template('organizations.html', organizations=organizations, title='Organizations')
 
 @universe.route('/organizations/<name>')
@@ -105,27 +200,30 @@ def organization(name):
     organization = OrganizationSchema().dump(Organization.query.filter_by(name=name).first())
     return render_template('organization.html', organization=organization, title=name)
 
-#NOTE: The spacecrafts classes is not pulling up the correct data, it seems to be pulling for locations instead
-# 
 @universe.route('/spacecrafts-classes')
-def spacescraft_classes():
+def spacecraft_classes():
     """Returns all spacecraft classes in the database"""
     spacecrafts_classes = AstronomicalObjectSchema(many=True).dump(AstronomicalObject.query.all())
-    return render_template('spacecrafts_classes.html', spacecrafts_classes=spacecrafts_classes)
+    return render_template('spacecrafts_classes.html', spacecrafts_classes=spacecrafts_classes, title='Spacecrafts Classes')
 
-#NOTE may not be worth implementing until I can fix the data issue
-# @universe.route('/spacecrafts-classes/<name>')
-# def spacecraft_class(name):
-#     """Returns a single spacecraft class from the database"""
-#     spacecraft_class = SpacecraftClassSchema().dump(SpacecraftClass.query.filter_by(name=name).first())
-#     return render_template('spacecraft_class.html', spacecraft_class=spacecraft_class, title=name)
+@universe.route('/spacecrafts-classes/<name>')
+def spacecraft_class(name):
+    """Returns a single spacecraft class from the database"""
+    spacecraft_class = SpacecraftClassSchema().dump(SpacecraftClass.query.filter_by(name=name).first())
+    return render_template('spacecraft_class.html', spacecraft_class=spacecraft_class, title=name)
 
-#NOTE data is returning all blanks at the moment
+
 @universe.route('/spacecrafts')
 def spacecrafts():
     """Returns all spacecrafts in the database"""
-    spacecrafts = SpacecraftSchema(many=True).dump(Spacecraft.query.all())
+    spacecrafts = Spacecraft.query.all()
     return render_template('spacecrafts.html', spacecrafts=spacecrafts)
+
+@universe.route('/spacecrafts/<name>')
+def spacecraft(name):
+    """Returns a single spacecraft from the database"""
+    spacecraft = Spacecraft.query.filter_by(name=name).first()
+    return render_template('spacecraft.html', spacecraft=spacecraft, title=name)
 
 @universe.route('/species_all')
 def species():
@@ -133,21 +231,50 @@ def species():
     # species_all = SpeciesSchema(many=True).dump(Species.query.all())
     # return render_template('species_all.html', species_all=species_all)
     species_all = Species.query.all()
-    #FIXME - Neither one of these implementations are working
-    print(Species.query.first())
-    return render_template('species_all.html', species_all=species_all)
+  
+    return render_template('species_all.html', species_all=species_all, title='Species')
+
+#FIXME - This route is not working at the moment
+@universe.route('/species/<name>')
+def species_by_name(name):
+    """Returns a single species from the database"""
+    species = Species.query.filter_by(name=name).first()
+    return render_template('species.html', species=species, title=name)
     
 @universe.route('/technologies')
 def technologies():
     """Returns all technologies in the database"""
-    technologies = TechnologySchema(many=True).dump(Technology.query.all())
+    technologies = Technology.query.all()
     return render_template('technologies.html', technologies=technologies)
 
-#NOTE weapons is also blank
+@universe.route('/technologies/<name>')
+def technology(name):
+    """Returns a single technology from the database"""
+    technology = Technology.query.filter_by(name=name).first()
+    return render_template('technology.html', technology=technology, title=name)
+
+@universe.route('/titles')
+def titles():
+    """Returns all titles in the database"""
+    titles = Title.query.all()
+    return render_template('titles.html', titles=titles)
+
+#FIXME - This route is not working at the moment
+@universe.route('/titles/<name>')
+def title(name):
+    """Returns a single title from the database"""
+    title_ = Title.query.filter_by(name=name).first()
+    return render_template('title.html', title_=title_, title=name)
+
 @universe.route('/weapons')
 def weapons():
     """Returns all weapons in the database"""
-    weapons = WeaponSchema(many=True).dump(Weapon.query.all())
-    weapons_ = Weapon.query.all()
+    weapons = Weapon.query.all()
     print(Weapon.query.first())
-    return render_template('weapons.html', weapons=weapons, weapons_=weapons_)
+    return render_template('weapons.html', weapons=weapons)
+
+@universe.route('/weapons/<name>')
+def weapon(name):
+    """Returns a single weapon from the database"""
+    weapon = Weapon.query.filter_by(name=name).first()
+    return render_template('weapon.html', weapon=weapon, title=name)

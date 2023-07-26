@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% block title %} {{title}} {% endblock %} {% block
+content %}
+
+<h1>Conflicts</h1>
+<p>Testing the conflicts</p>
+
+<ul class="conflicts-list">
+	{% for conflict in conflicts %}
+	<li>
+		<a href="/universe/conflicts/{{ conflict.name }}">{{ conflict.name }}</a>
+	</li>
+	{% endfor %} {% endblock %}
+</ul>
