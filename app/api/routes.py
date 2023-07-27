@@ -7,10 +7,11 @@ Making it a centralized location for the api to get data from the database.
 from app.api import api
 from flask import jsonify
 from app.models.animal_models import Animal
-from app.models.star_trek_models import Character, AstronomicalObject
+from app.models.star_trek_models import Character, AstronomicalObject, Movie
 from app.schemas.animal_schema import AnimalSchema
 from app.schemas.character_schema import CharacterSchema
 from app.schemas.astronomical_objects_schema import AstronomicalObjectSchema
+from app.schemas.movie_schema import MovieSchema
 
 @api.route('/api/test')
 def testing():
@@ -41,3 +42,9 @@ def characters():
     characters = CharacterSchema(many=True).dump(Character.query.all())
     print(characters[:10])
     return jsonify(characters)
+
+@api.route('/api/movies')
+def json_movies():
+    """Returns all movies in the database"""
+    movies = MovieSchema(many=True).dump(Movie.query.all())
+    return jsonify(movies)

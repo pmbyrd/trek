@@ -1,10 +1,19 @@
-{% extends "base.html" %}
-{% block title %}{{ title }}{% endblock %}
-{% block content %}
-  <h1>Movies</h1>
-  <ul>
-    {% for movie in movies %}
-      <li><a href="{{ url_for('media.movie', title=movie.title) }}">{{ movie.title }}</a></li>
-    {% endfor %}
-  </ul>
-{% endblock %}
+{% extends "base.html" %} {% block title %}{{ title }}{% endblock %} {% block
+content %}
+<h1>Movies</h1>
+<ul>
+	<!-- NOTE movie in this list should also correspond to each movie  -->
+	{% for movie in movies %}
+	<li>
+		<a href="{{ url_for('media.movie', title=movie.title) }}"
+			>{{ movie.title }}</a
+		>
+	</li>
+	{% endfor %}
+</ul>
+<div class="container movies">
+	
+</div>
+{% block scripts %}
+<script src="{{ url_for('media.static', filename='/js/movies.js') }}"></script>
+{% endblock %} {% endblock %}
