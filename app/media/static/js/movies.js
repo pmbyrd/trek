@@ -2,6 +2,8 @@ console.log('movies.js loaded');
 const API_KEY = "4cc3d718d79609d7b538246e87a080f0"
 const Base_URL = 'https://api.themoviedb.org/'
 const $moviesContainer = $(".movies")
+let $movieCard = $(".movie-card")
+const $moviesList = $(".movies-list")
 
 const OMDBAPI = "http://www.omdbapi.com/?i=tt3896198&apikey=cbdaf169"
 
@@ -10,14 +12,17 @@ const OMDBAPI = "http://www.omdbapi.com/?i=tt3896198&apikey=cbdaf169"
 async function getMovies() {
     try {
         //this call is to my own backend
-        const res = await axios.get('/movies/get_movies')
-        const titles = res.data.movies.map(movie => movie.title)
+        const res = await axios.get('/api/movies')
+        const movies = res.data
+        const titles = movies.map(movie => movie.title)
+        console.log(titles)
         return titles
     } catch (error) {
         console.log(error)
     }
 }
 
+getMovies()
 
 async function getMovie(movieTitle) {
     try {
@@ -46,11 +51,11 @@ async function displayMovies() {
         let movies = await getMovies();
         console.log(movies)
         //map over each movie and create a card for each movie
-        $moviesContainer.empty();
-        for (let movie of movies) {
-            let movieData = await getMovie(movie)
+        // $moviesContainer.empty();
+        for (let movieTitle of movies) {
+            let movieData = await getMovie(movieTitle)
             console.log(movieData)
-            let $movieCard = $(`
+            $movieCard = $(`
             <div class="card" style="width: 18rem;">
                 <img src="${movieData.poster}" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -73,5 +78,8 @@ async function displayMovies() {
 
 
 
+$(document).ready(displayMovies())
+// displayMovies()
 
-displayMovies()
+
+
