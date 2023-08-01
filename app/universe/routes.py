@@ -43,15 +43,9 @@ def animal(name):
     
     # use the scraper to get the images and paragraphs from memory alpha
     scrapped_animal = MemoryAlphaScraper(replace_space(name))
+    paired_elements = scrapped_animal.get_formatted_info()
     
-    # NOTE: this hack is not working at the moment only returning the tribbles image
-    # TODO need to implement a different method for scrapping images for animals
-    images = scrapped_animal.get_images()
-    image = images[0] if len(images) > 0 else tribbles
-    info = scrapped_animal.get_paragraphs()
-    
-    return render_template('animal.html', animal=animal, title=name, info=info, image=image)
-
+    return render_template('animal.html', animal=animal, title=name, paired_elements=paired_elements)
 
 
 @universe.route('/astronomical-objects')

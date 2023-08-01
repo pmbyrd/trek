@@ -8,10 +8,13 @@
 <div class="card">
     <img class="card-img-top" src="{{image}}" alt="">
     <div class="card-body">
-        <h4 class="card-title">{{animal.name}}</h4>
-        <p class="card-text">{{info}}</p>
+        <h3 class="card-title">{{animal.name}}</h4>
+        </div>
     </div>
 </div>
-</div>
+{% for span, p in paired_elements %}
+<h4>{{span.get_text()}}</h4>
+<p>{{p.get_text()}}</p>
+{% endfor %}
 
 {% endblock %}

@@ -36,6 +36,20 @@ class MemoryAlphaScraper:
                 images.append(i['data-src'])
         return images
     
+    def get_formatted_info(self):
+        soup = self.soup()
+        div = soup.find("div", class_="mw-parser-output")
+        spans = div.find_all("span", class_="mw-headline")
+        all_paragraphs = div.find_all("p")
+
+        # Combine `spans` and `all_paragraphs` using zip
+        paired_elements = zip(spans, all_paragraphs)
+
+        for span, p in paired_elements:
+            print(span.get_text())
+            print(p.get_text())
+            return paired_elements
+    
     def get_paragraphs(self):
         content = []
         soup = self.soup()
