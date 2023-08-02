@@ -28,13 +28,13 @@ import json
 def index():
     return render_template('universe.html')
 
-
+# FIXME Animals are being weird
 @universe.route('/animals')
 def animals():
     """Returns all animals in the database"""
     page = request.args.get('page', 1, type=int)
     animals = Animal.query.order_by(Animal.name.asc()).all()
-    paginated_animals = Animal.query.order_by(Animal.name.asc()).paginate(page=page, per_page=10)
+    paginated_animals = Animal.query.order_by(Animal.name.asc()).paginate(page=page, per_page=25)
     
     return render_template('animals.html', animals=animals, title='Animals', page=page, paginated_animals=paginated_animals)
 

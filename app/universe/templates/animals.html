@@ -8,7 +8,7 @@ content %}
 <ul>
 	{% for animal in paginated_animals.items %}
 </ul>
-<li><a href="{{ url_for('universe.animals', name=animal.name) }}">{{ animal.name }}</a></li>
+<li><a href="{{ url_for('universe.animals.animal', name=animal.name) }}">{{ animal.name }}</a></li>
 	<!-- Add other attributes as needed -->
 	{% endfor %}
 </ul>
