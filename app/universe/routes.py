@@ -38,16 +38,22 @@ def animals():
     
     return render_template('animals.html', animals=animals, title='Animals', page=page, paginated_animals=paginated_animals)
 
+# NOTE there is a problem with the animals route - Nonetype is not iterable
 @universe.route('/animals/<name>')
 def animal(name):
     """Returns a single animal from the database"""
     animal = AnimalSchema().dump(Animal.query.filter_by(name=name).first())
     
-    # use the scraper to get the images and paragraphs from memory alpha
-    scrapped_animal = MemoryAlphaScraper(replace_space(name))
-    paired_elements = scrapped_animal.get_formatted_info()
-    
-    return render_template('animal.html', animal=animal, title=name, paired_elements=paired_elements)
+    try:
+        
+        scrapped_animal = MemoryAlphaScraper(replace_space(name))
+        paired_elements = scrapped_animal.get_formatted_info()
+        return render_template('animal.html', animal=animal, title=name, paired_elements=paired_elements)
+    except TypeError as Nonetype:
+        if Nonetype:
+            print(Nonetype)
+            paired_elements = None
+            return render_template('animal.html', animal=animal, title=name)
 
 
 @universe.route('/astronomical-objects')
