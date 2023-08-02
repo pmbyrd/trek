@@ -44,11 +44,19 @@ def animal(name):
     """Returns a single animal from the database"""
     animal = AnimalSchema().dump(Animal.query.filter_by(name=name).first())
     
+    
     try:
         
         scrapped_animal = MemoryAlphaScraper(replace_space(name))
-        paired_elements = scrapped_animal.get_formatted_info()
-        return render_template('animal.html', animal=animal, title=name, paired_elements=paired_elements)
+        summary = scrapped_animal.get_summary()
+        if summary:
+            print("summary found")
+        elif not summary:
+            print("summary not found")
+        else:
+            print("summary is not iterable")
+        # import pdb; pdb.set_trace()
+        return render_template('animal.html', animal=animal, title=name, summary=summary)
     except TypeError as Nonetype:
         if Nonetype:
             print(Nonetype)

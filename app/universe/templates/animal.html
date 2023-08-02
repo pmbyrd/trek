@@ -5,16 +5,20 @@
 <h1>{{ animal.name }}</h1>
 
 <div class="container" id="{{animal.name}}">
-<div class="card">
-    <img class="card-img-top" src="{{image}}" alt="">
-    <div class="card-body">
-        <h3 class="card-title">{{animal.name}}</h4>
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">{{animal.name}}</h4>
+                {% if summary %}
+                {% for current_headline, node in summary %}
+                <h3 class>{{current_headline.get_text}}</h3>
+                <p>{{node}}</p>
+                {% endfor %}
+                {% endif %}
         </div>
     </div>
 </div>
 
-{% for span, p in paired_elements %}
-<h4>{{span.get_text()}}</h4>
-<p>{{p.get_text()}}</p>
-{% endfor %}
+<div class="button" id="top-left"><a href="/media">Media</a></div>
+
+
 {% endblock %}

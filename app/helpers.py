@@ -36,12 +36,36 @@ class MemoryAlphaScraper:
                 images.append(i['data-src'])
         return images
     
+    def get_images_aside(self):
+        try: 
+            url = self.soup()
+            aside = url.find("aside")
+            image_class = url.find("div", {"class": "image"})        
+            # print(aside)
+            if aside:
+                print("aside found")
+                try:
+                    images = aside.findAll("img")
+                    if images:
+                        images = [{image.get("src"), image.get("alt")} for image in images]
+                        return images
+                    else:
+                        print("No image found in the 'aside' section.")
+                except (TypeError, AttributeError, NameError) as e:
+                    print(e)
+            elif image_class:
+                    if image_class:
+                        images = [{image.get("src"), image.get("alt")} for image in image_class]
+                    else:
+                        print("No image found in the 'image' section.")
+        except AttributeError as e:
+            print(e)
+    
     def get_formatted_info(self):
         soup = self.soup()
         div = soup.find("div", class_="mw-parser-output")
         spans = div.find_all("span", class_="mw-headline")
         all_paragraphs = div.find_all("p")
-
         # Combine `spans` and `all_paragraphs` using zip
         paired_elements = zip(spans, all_paragraphs)
 
@@ -49,6 +73,36 @@ class MemoryAlphaScraper:
             print(span.get_text())
             print(p.get_text())
             return paired_elements
+        
+    def get_summary(self):
+        """Gets the summary of the show"""
+        soup = self.soup()
+        div = soup.find("div", {"class": "mw-parser-output"})
+        content_nodes = div.find_all(["h2", "h3", "p", "b", "ul"])
+    
+        # Create a list to store tuples of paired elements (headline, content)
+        headlines = div.find_all(["h2", "h3", "h4"])
+        content_nodes = div.find_all(["p", "b", "ul"])
+        paired_elements = []
+        current_headline = None
+    
+        for node in content_nodes:
+            if node.name in ["h2", "h3"]:
+                # If the node is a headline, update the current_headline
+                current_headline = node.get_text()
+            else:
+                # If the node is not a headline, it's content associated with the current_headline
+                paired_elements.append((current_headline, node.get_text()))
+    
+        # Loop through the paired elements and print the information
+        for headline, content in paired_elements:
+            print(headline)
+            print(content)
+            return paired_elements
+    
+
+        
+        
     
     def get_paragraphs(self):
         content = []
@@ -60,6 +114,8 @@ class MemoryAlphaScraper:
             content = [p.get_text().replace("\n", " ") for p in all_paragraphs]
 
         return content
+    
+ 
 # class MemoryAlphaScraper:
 #     def __init__(self, name, base_url="https://memory-alpha.fandom.com/wiki"):
 #         self.base_url = base_url
@@ -74,31 +130,6 @@ class MemoryAlphaScraper:
     
 #     def __repr__(self):
 #         return f"<MemoryAlphaScraper {self.name}>"
-    
-#     def get_images(self):
-#         try: 
-#             url = self.soup()
-#             aside = url.find("aside")
-#             image_class = url.find("div", {"class": "image"})        
-#             # print(aside)
-#             if aside:
-#                 print("aside found")
-#                 try:
-#                     images = aside.findAll("img")
-#                     if images:
-#                         images = [{image.get("src"), image.get("alt")} for image in images]
-#                         return images
-#                     else:
-#                         print("No image found in the 'aside' section.")
-#                 except AttributeError as e:
-#                     print(e)
-#             elif image_class:
-#                     if image_class:
-#                         images = [{image.get("src"), image.get("alt")} for image in image_class]
-#                     else:
-#                         print("No image found in the 'image' section.")
-#         except AttributeError as e:
-#             print(e)
     
 #     def get_content(self):
 #         url = self.soup()
@@ -179,25 +210,25 @@ class MemoryAlphaScraper:
 #     #     print("get_content")
         
 
-#     # def ma_article(self, url, content_format="xml", content_nodes=("h2", "h3", "p", "b", "ul"), browse=False):
-#     #     # Make a GET request to the URL
-#     #     response = requests.get(url)
-#     #     response.raise_for_status()  # Raise an exception for unsuccessful requests
+    # def ma_article(self, url, content_format="xml", content_nodes=("h2", "h3", "p", "b", "ul"), browse=False):
+    #     # Make a GET request to the URL
+    #     response = requests.get(url)
+    #     response.raise_for_status()  # Raise an exception for unsuccessful requests
 
-#     #     # Parse the HTML content using BeautifulSoup
-#     #     soup = BeautifulSoup(response.content, content_format)
+    #     # Parse the HTML content using BeautifulSoup
+    #     soup = BeautifulSoup(response.content, content_format)
 
-#     #     # Find the desired content nodes
-#     #     nodes = soup.find_all(content_nodes)
+    #     # Find the desired content nodes
+    #     nodes = soup.find_all(content_nodes)
 
-#     #     # Print or process the extracted content nodes
-#     #     for node in nodes:
-#     #         print(node.get_text())  # Example: printing the text content of each node
+    #     # Print or process the extracted content nodes
+    #     for node in nodes:
+    #         print(node.get_text())  # Example: printing the text content of each node
 
-#     #     # Optionally, browse the extracted content
-#     #     if browse:
-#     #         # Perform some actions to browse the extracted content
-#     #         pass
+    #     # Optionally, browse the extracted content
+    #     if browse:
+    #         # Perform some actions to browse the extracted content
+    #         pass
 
 
 
