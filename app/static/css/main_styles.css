@@ -31,22 +31,26 @@ a:hover::after {
     transform: scaleX(1);
 }
 
+
+p,
+.main-content-container,
+.main-banner,
+.container
+ {
+    border-radius: 20px;
+}
+
 .main-banner {
-    background-image: url("../img/bg.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
-    display: flex;
-    align-items: center;
+    background-color: black;
     justify-content: center;
+    align-items: center;
+    padding-right: 20px;
 }
 
 .main-content-container {
     padding: 20px;
     background-image: url("static/images/warp.jpg");
     background-color: #455580;
-    
     /* background-image: url("app/images/casey-horner-RmoWqDCqN2E-unsplash (1).jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -60,4 +64,15 @@ a:hover::after {
 
 .image-li-ships {
     list-style: georgian inside url('/media/examples/rocket.svg');
+}
+
+.paragraph-info {
+    font-size: 1.2rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #fff;
+}
+
+#div-info {
+    background-color: #79d;
 }
