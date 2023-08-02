@@ -1,12 +1,12 @@
-{% extends "base.html" %}
- {% block title %} {{title}} {% endblock %}
-  {% block content %}
+{% extends "base.html" %} {% block title %} {{title}} {% endblock %} {% block
+content %}
 <h1>Animals</h1>
 <h2>Testing the animals page</h2>
 
+
+<!-- NOTE attempting to paginate the number of animals 10 at a time -->
 <div class="container animals">
-	<!-- list all animals and paginate based on alphabetical order -->
-	{% for animal in animals %}
+	--> {% for animal in animals %}
 	<div class="row">
 		<div class="col-12">
 			<a href="/universe/animals/{{ animal.name }}">
@@ -14,14 +14,16 @@
 			</a>
 		</div>
 		{% endfor %}
+	</div>
+
+
+		<!-- Add the javascript to this page -->
+		{% block scripts %}
+		<script
+			src="{{ url_for('universe.static', filename='js/animals.js')}}"
+			defer
+		></script>
+
+		{% endblock %} {% endblock %}
+	</div>
 </div>
-
-<!-- Add the javascript to this page -->
-{% block scripts %}
-<script
-	src="{{ url_for('universe.static', filename='js/animals.js')}}"
-	defer
-></script>
-
-{% endblock %}
- {% endblock %}
