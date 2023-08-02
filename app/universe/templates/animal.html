@@ -1,26 +1,29 @@
-{% extends "base.html" %}
-{% block title %} {{ title }} {% endblock %}
-{% block content %}
+{% extends "base.html" %} {% block title %} {{ title }} {% endblock %} {% block
+content %}
 
 <h1 class="banner">{{ animal.name }}</h1>
-<div class="container">
-    
-<div class="wrap" id="{{animal.name}}">
-    <div class="card">
-        <div class="card-body bg-dark">
-            <h3 class="card-title">{{animal.name}}</h4>
+<div class="simple">
+	<div class="bg-img">
+		<div class="card inner-card">
+			<div class="card-body">
+				<h2 class="card-title">{{animal.name}}</h2>
                 {% if summary %}
-                {% for current_headline, node in summary %}
-                <h3 class="text-center">{{current_headline.get_text}}</h3>
-                <p>{{node}}</p>
-                {% endfor %}
+                {% for heading, info in summary %}
+                <!-- if heading does ==None I want the heading else print a line break -->
+                {% if heading == None %}
+                <hr>
+                {% else %}
+                <h3>{{heading}}</h3>
                 {% endif %}
-        </div>
-    </div>
-    <div class="button"><a class="c71" href="(url_for('universe.animal'))">Animals</a></div>
+                <p>{{info}}</p>
+                {% endfor%}
+                {%endif%}
+			</div>
+		</div>
+		<div class="button">
+			<a class="c71" href="(url_for('universe.animal'))">Animals</a>
+		</div>
+	</div>
 </div>
-
-</div>
-
 
 {% endblock %}

@@ -43,8 +43,7 @@ def animal(name):
     animal = AnimalSchema().dump(Animal.query.filter_by(name=name).first())
     
     
-    try:
-        
+    try:     
         scrapped_animal = MemoryAlphaScraper(replace_space(name))
         summary = scrapped_animal.get_summary()
         if summary:

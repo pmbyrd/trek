@@ -45,17 +45,17 @@ p,
     justify-content: center;
     align-items: center;
     padding-right: 20px;
+    color:#6cf;
 }
 
 .main-content-container {
     padding: 20px;
-    background-image: url("static/images/warp.jpg");
+    background-image: url('/app/static/img/warp.jpg');
     background-color: #455580;
-    /* background-image: url("app/images/casey-horner-RmoWqDCqN2E-unsplash (1).jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    padding: 20px; Add some padding to the content div */
+    padding: 20px; 
 }
 
 .image-li-symbols {
@@ -63,7 +63,7 @@ p,
 }
 
 .image-li-ships {
-    list-style: georgian inside url('/media/examples/rocket.svg');
+    list-style: georgian outside url('/non-existent.svg');
 }
 
 .paragraph-info {
@@ -76,3 +76,20 @@ p,
 #div-info {
     background-color: #79d;
 }
+
+.bg-img {
+    background-image: url("static/img/warp.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 20px;
+}
+
+.simple {
+    background-color: #79d;
+    color: #fff;
+    padding: 10px;
+    border-top-left-radius: 25px;
+}
+
+
