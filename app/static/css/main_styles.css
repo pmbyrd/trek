@@ -1,0 +1,63 @@
+/* NOTE for universal styles to be implemented throughout the application */
+
+
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    position: relative;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+a:hover {
+    color: #6cf;
+    transform: translateY(-3px);
+}
+
+a::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background-color: #6cf;
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+}
+
+a:hover::after {
+    transform: scaleX(1);
+}
+
+.main-banner {
+    background-image: url("../img/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-content-container {
+    padding: 20px;
+    background-image: url("static/images/warp.jpg");
+    background-color: #455580;
+    
+    /* background-image: url("app/images/casey-horner-RmoWqDCqN2E-unsplash (1).jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 20px; Add some padding to the content div */
+}
+
+.image-li-symbols {
+   list-style: georgian inside url('/media/examples/rocket.svg');
+}
+
+.image-li-ships {
+    list-style: georgian inside url('/media/examples/rocket.svg');
+}

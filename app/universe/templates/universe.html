@@ -1,6 +1,7 @@
 {% extends "base.html" %} {% block title %} Universe {% endblock %} {% block
 content %}
-<h1 text-center>Universe</h1>
+<div class="main-content-container">
+  <h1 class="button banner">Universe</h1>
 <!-- This link should take us to an animal page -->
 <div class="container text-justify" id="universe-info">
   <p class="universe-info">
@@ -12,35 +13,36 @@ content %}
   </p>
 </div>
 <ul>
-  <li><a href="/universe/animals">animals</a></li>
+  <li class="image-li-ships"><a href="/universe/animals">animals</a></li>
   <p>has some data</p>
-  <li><a href="/universe/astronomical-objects">astronomical objects</a></li>
-  <li><a href="/universe/characters">characters</a></li> 
+  <li class="image-li-ships"><a href="/universe/astronomical-objects">astronomical objects</a></li>
+  <li class="image-li-ships"><a href="/universe/characters">characters</a></li> 
   <p>The characters route is returning blank what seems to be the correct format</p>
-  <li><a href="/universe/conflicts">conflict</a></li>
+  <li class="image-li-ships"><a href="/universe/conflicts">conflict</a></li>
   <p>skipped on for not on 07.21.23 need a better way to process this bit of information</p>
-  <li><a href="/universe/elements">element</a></li>
-  <p>skipped on for not on 07.21.23 need a better way to process this bit of information</p>
-
-  <li><a href="/universe/foods">food</a></li>
+  <li class="image-li-ships"><a href="/universe/elements">element</a></li>
   <p>skipped on for not on 07.21.23 need a better way to process this bit of information</p>
 
-  <li><a href="/universe/locations">location</a></li>
+  <li class="image-li-ships"><a href="/universe/foods">food</a></li>
   <p>skipped on for not on 07.21.23 need a better way to process this bit of information</p>
-  <li><a href="/universe/materials">material</a></li>
+
+  <li class="image-li-ships"><a href="/universe/locations">location</a></li>
+  <p>skipped on for not on 07.21.23 need a better way to process this bit of information</p>
+  <li class="image-li-ships"><a href="/universe/materials">material</a></li>
     
-  <li><a href="/universe/occupations">occupation</a></li>
+  <li class="image-li-ships"><a href="/universe/occupations">occupation</a></li>
   <p>The characters route is returning blank what seems to be the correct format</p>
 
-  <li><a href="/universe/organizations">organization</a></li>
-  <li><a href="/universe/spacecrafts">spacecrafts</a></li>
-  <li><a href="/universe/spacecrafts-classes">spacecrafts by class</a></li>
-  <li><a href="/universe/species_all">species</a></li>
+  <li class="image-li-ships"><a href="/universe/organizations">organization</a></li>
+  <li class="image-li-ships"><a href="/universe/spacecrafts">spacecrafts</a></li>
+  <li class="image-li-ships"><a href="/universe/spacecrafts-classes">spacecrafts by class</a></li>
+  <li class="image-li-ships"><a href="/universe/species_all">species</a></li>
   <p>Species seems to be returning blank</p>
-  <li><a href="/universe/titles">title</a></li>
+  <li class="image-li-ships"><a href="/universe/titles">title</a></li>
     
-  <li><a href="/universe/technologies">technology</a></li>
-  <li><a href="/universe/weapons">weapons</a></li>
+  <li class="image-li-ships"><a href="/universe/technologies">technology</a></li>
+  <li class="image-li-ships"><a href="/universe/weapons">weapons</a></li>
   <p>The weapons seem to be returning empty</p>
 </ul>
+</div>
 {% endblock %}
