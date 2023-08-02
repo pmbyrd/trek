@@ -28,7 +28,6 @@ import json
 def index():
     return render_template('universe.html')
 
-# FIXME Animals are being weird
 @universe.route('/animals')
 def animals():
     """Returns all animals in the database"""
@@ -38,7 +37,6 @@ def animals():
     
     return render_template('animals.html', animals=animals, title='Animals', page=page, paginated_animals=paginated_animals)
 
-# NOTE there is a problem with the animals route - Nonetype is not iterable
 @universe.route('/animals/<name>')
 def animal(name):
     """Returns a single animal from the database"""
@@ -67,8 +65,11 @@ def animal(name):
 @universe.route('/astronomical-objects')
 def astronomical_objects():
     """Returns all astronomical objects in the database"""
-    astronomical_objects = AstronomicalObjectSchema(many=True).dump(AstronomicalObject.query.all())
-    return render_template('astronomical_objects.html', astronomical_objects=astronomical_objects)
+    page = request.args.get('page', 1, type=int)
+    astronomical_objects = AstronomicalObject.query.order_by(AstronomicalObject.name.asc()).all()
+    paginated_astronomical_objects = AstronomicalObject.query.order_by(AstronomicalObject.name.asc()).paginate(page=page, per_page=25)
+    
+    return render_template('astronomical_objects.html', astronomical_objects=astronomical_objects, title='Astronomical Objects', page=page, paginated_astronomical_objects=paginated_astronomical_objects)
 
 @universe.route('/astronomical-objects/<name>')
 def astronomical_object(name):
