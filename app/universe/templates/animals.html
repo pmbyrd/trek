@@ -13,26 +13,21 @@ content %}
 	{% endfor %}
 </ul>
 <div class="pagination">
-    {% if paginated_animals.has_prev %}
-        <a href="{{ url_for(request.endpoint, page=paginated_animals.prev_num) }}">Previous</a>
-    {% endif %}
-    {% if paginated_animals.has_next %}
-        <a href="{{ url_for(request.endpoint, page=paginated_animals.next_num) }}">Next</a>
-    {% endif %}
+	{% if paginated_animals.has_prev %}
+	<li><a href="{{ url_for(request.endpoint, page=paginated_animals.prev_num) }}">Previous</a></li>
+{% endif %}
+{% for page_num in paginated_animals.iter_pages() %}
+	{% if page_num %}
+		<li><a href="{{ url_for(request.endpoint, page=page_num) }}">{{ page_num }}</a></li>
+	{% else %}
+		<li><span class="current">{{ paginated_animals.page }}</span></li>
+	{% endif %}
+{% endfor %}
+{% if paginated_animals.has_next %}
+	<li><a href="{{ url_for(request.endpoint, page=paginated_animals.next_num) }}">Next</a></li>
+{% endif %}
 </div>
 
-
-
-<div class="container animals">
-	--> {% for animal in animals %}
-	<div class="row">
-		<div class="col-12">
-			<a href="/universe/animals/{{ animal.name }}">
-				<h3>{{ animal.name }}</h3>
-			</a>
-		</div>
-		{% endfor %}
-	</div>
 
 
 		<!-- Add the javascript to this page -->
