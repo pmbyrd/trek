@@ -32,9 +32,11 @@ def index():
 @universe.route('/animals')
 def animals():
     """Returns all animals in the database"""
-    animals = AnimalSchema(many=True).dump(Animal.query.all())
-
-    return render_template('animals.html', animals=animals)
+    page = request.args.get('page', 1, type=int)
+    animals = Animal.query.order_by(Animal.name.asc()).all()
+    paginated_animals = Animal.query.order_by(Animal.name.asc()).paginate(page=page, per_page=10)
+    
+    return render_template('animals.html', animals=animals, title='Animals', page=page, paginated_animals=paginated_animals)
 
 @universe.route('/animals/<name>')
 def animal(name):
