@@ -13,9 +13,11 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from authlib.integrations.flask_client import OAuth
 from flask_marshmallow import Marshmallow
+from flask_bootstrap import Bootstrap
 
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
 oauth = OAuth()
 ma = Marshmallow()
+bootstrap = Bootstrap()
