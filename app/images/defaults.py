@@ -1,1 +1,0 @@
-tribbles = "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/ST_TroubleWithTribbles.jpg/330px-ST_TroubleWithTribbles.jpg"

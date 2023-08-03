@@ -2,12 +2,12 @@
 {% block title %} Astronomical Objects {% endblock %}
 {% block content %}
 
-<h1>{{ title }}</h1>
+<h1 class="banner">{{ title }}</h1>
 <ul>
-	{% for astronomical_objects in paginated_astronomical_objects.items %}
+	{% for astronomical_object in paginated_astronomical_objects.items %}
 </ul>
 
-<li><a href="{{url_for('universe.astronomical_objects', name=astronomical_objects.name)}}">{{ astronomical_objects.name }}</a></li>
+<li class="image-li"><a href="{{url_for('universe.astronomical_object', name=astronomical_object.name)}}">{{ astronomical_object.name }}</a></li>
 	<!-- Add other attributes as needed -->
 	{% endfor %}
 </ul>
