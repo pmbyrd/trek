@@ -18,7 +18,7 @@ from app.schemas.species_schema import SpeciesSchema
 from app.schemas.technology_schema import TechnologySchema
 from app.schemas.weapon_schema import WeaponSchema
 from app.helpers import MemoryAlphaScraper, replace_space
-from app.images.defaults import tribbles
+from app.static.img.defaults import tribbles
 from random import choices
 
 import json
@@ -46,14 +46,19 @@ def animal(name):
     try:     
         scrapped_animal = MemoryAlphaScraper(replace_space(name))
         summary = scrapped_animal.get_summary()
+        get_info = scrapped_animal.get_formatted_info()
         if summary:
             print("summary found")
         elif not summary:
             print("summary not found")
         else:
             print("summary is not iterable")
+        if get_info:
+            print("info found")
+        else:
+            print("info not found")
         # import pdb; pdb.set_trace()
-        return render_template('animal.html', animal=animal, title=name, summary=summary)
+        return render_template('animal.html', animal=animal, title=name, summary=summary, get_info=get_info)
     except TypeError as Nonetype:
         if Nonetype:
             print(Nonetype)
@@ -74,9 +79,18 @@ def astronomical_objects():
 def astronomical_object(name):
     """Returns a single astronomical object from the database"""
     astronomical_object = AstronomicalObjectSchema().dump(AstronomicalObject.query.filter_by(name=name).first())
-    return render_template('astronomical_object.html', astronomical_object=astronomical_object, title=name)
-
-# NOTE: The characters route is not working at the moment
+    try:
+        scarpped_astronomical_object = MemoryAlphaScraper(replace_space(name))
+        summary = scarpped_astronomical_object.get_summary()
+        if summary:
+            return render_template('astronomical_object.html', astronomical_object=astronomical_object, summary=summary, title=name)
+        else:
+            print("summary not found")
+            raise TypeError
+    except Exception as e:
+        return "Error: " + str(e)
+    
+    
 @universe.route('/characters')
 def characters():
     """Returns all characters in the database"""
