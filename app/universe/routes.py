@@ -90,83 +90,109 @@ def astronomical_object(name):
     except Exception as e:
         return "Error: " + str(e)
     
-    
+# FIXME - Characters needs a lot more work, the formatting is horrible for when popular characters
 @universe.route('/characters')
 def characters():
     """Returns all characters in the database"""
     # characters = CharacterSchema(many=True).dump(Character.query.all())4
-    characters = Character.query.all()
-    return render_template('characters.html', characters=characters, title='Characters')
+    page = request.args.get('page', 1, type=int)
+    characters = Character.query.order_by(Character.name.asc()).all()
+    paginated_characters = Character.query.order_by(Character.name.asc()).paginate(page=page, per_page=25)
+    
+    return render_template('characters.html', characters=characters, title='Characters', page=page, paginated_characters=paginated_characters)
 
 @universe.route('/characters/<name>')
 def character(name):
     """Returns a single character from the database"""
-    character = CharacterSchema().dump(Character.query.filter_by(name=name).first())
+    character = Character.query.filter_by(name=name).first()
     try:
         scrapped_character = MemoryAlphaScraper(replace_space(name))
-        images = scrapped_character.get_images()
-        image = images[0] if len(images) > 0 else tribbles
-        info = scrapped_character.get_paragraphs()
+        summary = scrapped_character.get_summary()
+        if summary:
+            return render_template('character.html', character=character, summary=summary, title=name)
+        else:
+            print("summary not found")
+            raise TypeError
+    
     except Exception as e:
-        print(e)
-    return render_template('character.html', character=character, title=name, info=info, image=image)
+        return "Error: " + str(e)
+    
+            
+    
+        
 
 @universe.route('/conflicts')
 def conflicts():
     """Returns all conflicts in the database"""
-    conflicts = Conflict.query.all()
-    return render_template('conflicts.html', conflicts=conflicts, title='Conflicts')
+    page = request.args.get('page', 1, type=int)
+    conflict = Conflict.query.order_by(Conflict.name.asc()).all()
+    paginated_conflicts = Conflict.query.order_by(Conflict.name.asc()).paginate(page=page, per_page=25)
+    return render_template('conflicts.html', conflict=conflict, title='Conflicts', page=page, paginated_conflicts=paginated_conflicts)
 
+#FIXME - Conflicts formatting is still weird
 @universe.route('/conflicts/<name>')
 def conflict(name):
     """Returns a single conflict from the database"""
     conflict = Conflict.query.filter_by(name=name).first()
-    try:
-        scrapped_conflict = MemoryAlphaScraper(replace_space(name))
-        images = scrapped_conflict.get_images()
-        image = images[0] if len(images) > 0 else tribbles
-        info = scrapped_conflict.get_paragraphs()
-    except Exception as e:
-        print (e)
-    return render_template('conflict.html', conflict=conflict, title=name, info=info, image=image)
+    if conflict:
+        try:
+            scrapped_conflict = MemoryAlphaScraper(replace_space(name))
+            summary = scrapped_conflict.get_summary()
+            if summary:
+                return render_template('conflict.html', conflict=conflict, summary=summary, title=name)
+            else:
+                print("summary not found")
+                raise TypeError
+        except Exception as e:
+            return "Error: " + str(e)
 
 @universe.route('/elements')
 def elements():
     """Returns all elements in the database"""
-    elements = Element.query.all()
-    return render_template('elements.html', elements=elements, title='Elements')
+    page = request.args.get('page', 1, type=int)
+    elements = Element.query.order_by(Element.name.asc()).all()
+    paginated_elements = Element.query.order_by(Element.name.asc()).paginate(page=page, per_page=25)
+    return render_template('elements.html', elements=elements, title='Elements', page=page, paginated_elements=paginated_elements)
 
 @universe.route('/elements/<name>')
 def element(name):
     """Returns a single element from the database"""
     element = Element.query.filter_by(name=name).first()
-    try:
-        scrapped_element = MemoryAlphaScraper(replace_space(name))
-        images = scrapped_element.get_images()
-        image = images[0] if len(images) > 0 else tribbles
-        info = scrapped_element.get_paragraphs()
-    except Exception as e:
-        print (e)
-    return render_template('element.html', element=element, title=name, info=info, image=image)
+    if element:
+        try:
+            scrapped_element = MemoryAlphaScraper(replace_space(name))
+            summary = scrapped_element.get_summary()
+            if summary:
+                return render_template('element.html', element=element, summary=summary, title=name)
+            else:
+                print("summary not found")
+                raise TypeError
+        except Exception as e:
+            return "Error: " + str(e)
 
 @universe.route('/foods')
 def foods():
     """Returns all foods in the database"""
-    foods = Food.query.all()
-    return render_template('foods.html', foods=foods, title='Foods')
+    page = request.args.get('page', 1, type=int)
+    foods = Food.query.order_by(Food.name.asc()).all()
+    paginated_foods = Food.query.order_by(Food.name.asc()).paginate(page=page, per_page=25)
+    return render_template('foods.html', foods=foods, title='Foods', page=page, paginated_foods=paginated_foods)
 
 @universe.route('/foods/<name>')
 def food(name):
     """Returns a single food from the database"""
     food = Food.query.filter_by(name=name).first()
-    try:
-        scrapped_food = MemoryAlphaScraper(replace_space(name))
-        images = scrapped_food.get_images()
-        image = images[0] if len(images) > 0 else tribbles
-        info = scrapped_food.get_paragraphs()
-    except Exception as e:
-        print (e)
-    return render_template('food.html', food=food, title=name, info=info, image=image)
+    if food:
+        try:
+            scrapped_food = MemoryAlphaScraper(replace_space(name))
+            summary = scrapped_food.get_summary()
+            if summary:
+                return render_template('food.html', food=food, summary=summary, title=name)
+            else:
+                print("summary not found")
+                raise TypeError
+        except Exception as e:
+            return "Error: " + str(e)
 
 @universe.route('/locations')
 def locations():

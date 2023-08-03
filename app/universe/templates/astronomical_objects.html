@@ -7,7 +7,7 @@
 	{% for astronomical_object in paginated_astronomical_objects.items %}
 </ul>
 
-<li class="image-li"><a href="{{url_for('universe.astronomical_object', name=astronomical_object.name)}}">{{ astronomical_object.name }}</a></li>
+<li class="image-li-ships"><a href="{{url_for('universe.astronomical_object', name=astronomical_object.name)}}">{{ astronomical_object.name }}</a></li>
 	<!-- Add other attributes as needed -->
 	{% endfor %}
 </ul>

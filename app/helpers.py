@@ -78,26 +78,33 @@ class MemoryAlphaScraper:
         """Gets the summary of the show"""
         soup = self.soup()
         div = soup.find("div", {"class": "mw-parser-output"})
-        content_nodes = div.find_all(["h2", "h3", "p", "b", "ul"])
-    
+        content_nodes = div.find_all(["h2", "h3", "p", "b", "ul", "span"])
         # Create a list to store tuples of paired elements (headline, content)
+        spans = div.find_all("span", class_="mw-headline")
         headlines = div.find_all(["h2", "h3", "h4"])
         content_nodes = div.find_all(["p", "b", "ul"])
+          
         paired_elements = []
         current_headline = None
     
         for node in content_nodes:
-            if node.name in ["h2", "h3"]:
+            if node.name in ["h2", "h3", "h4"]:
                 # If the node is a headline, update the current_headline
-                current_headline = node.get_text()
+                current_headline = node.get_text()    
             else:
                 # If the node is not a headline, it's content associated with the current_headline
                 paired_elements.append((current_headline, node.get_text()))
+                
+        for span in spans:
+            if span.name in ["span"]:
+                # If the node is a headline, update the current_headline
+                current_headline = span.get_text()
     
         # Loop through the paired elements and print the information
         for headline, content in paired_elements:
             print(headline)
             print(content)
+            print(spans)
             return paired_elements
     
 
