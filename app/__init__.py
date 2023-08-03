@@ -1,28 +1,42 @@
-from flask import Flask
 import sys
 import os
+import logging
+from logging.handlers import RotatingFileHandler
+
+from click import echo
+from flask import Flask
+from flask.logging import default_handler
 
 # Add the parent directory of the 'app' module to sys.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from app.extensions import db, migrate, oauth, ma, bootstrap
-
 from config import Config
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
 def create_app(config_class=Config):
     app = Flask(__name__)
+    #SECTION- Logging
+    
+    config_type = os.getenv('CONFIG_TYPE', default='config.DevelopmentConfig')
     app.config.from_object(config_class)
     # Initialize Flask extensions here
     oauth.init_app(app)
     bootstrap.init_app(app)
+    configure_logging(app)
 
     with app.app_context():
         # NOTE- Order does matter the initialization process
         db.init_app(app)
         ma.init_app(app)
     migrate.init_app(app, db)
+    
+#     if app.config['LOG_WITH_GUNICORN']:
+#     gunicorn_error_logger = logging.getLogger('gunicorn.error')
+#     app.logger.handlers.extend(gunicorn_error_logger.handlers)
+#     app.logger.setLevel(logging.DEBUG)
+# else:
+#     ... standard logging configuration ...
 
     # Initialize Flask extensions here
 
@@ -54,6 +68,25 @@ def create_app(config_class=Config):
                 
     return app
 
+def configure_logging(app):
+    # Logging Configuration
+    if app.config['LOG_WITH_GUNICORN']:
+        gunicorn_error_logger = logging.getLogger('gunicorn.error')
+        app.logger.handlers.extend(gunicorn_error_logger.handlers)
+        app.logger.setLevel(logging.DEBUG)
+    else:
+        file_handler = RotatingFileHandler('instance/flask-user-management.log',
+                                           maxBytes=16384,
+                                           backupCount=20)
+        file_formatter = logging.Formatter('%(asctime)s %(levelname)s %(threadName)s-%(thread)d: %(message)s [in %(filename)s:%(lineno)d]')
+        file_handler.setFormatter(file_formatter)
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
+
+    # Remove the default logger configured by Flask
+    app.logger.removeHandler(default_handler)
+
+    app.logger.info('Starting the Flask User Management App...')
 
 
 
