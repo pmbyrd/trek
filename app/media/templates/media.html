@@ -13,15 +13,10 @@
   <ul>
     
     <li><a href="{{url_for('universe.characters')}}">character</a></li>
-    <li><a href="/media/companies">company</a></li>
-    <b><p>Companies may end up being eliminated, seems a bit like unnecessary meta data</p></b>
+   
     <li><a href="/media/movies">movies</a></li>
-    <li><a href="/media/performers">performers</a></li>
+    <li><a href="{{url_for('universe.performers')}}">performers</a></li>
     <li><a href="/media/shows">series</a></li>
     <p>series needs to connect to the seasons and episodes</p>
-    <li><a href="/media/staff">staff</a></li>
-    <b>
-      <p>Staff may also be eliminated to help simplify things</p>
-    </b>
   </ul>
 {% endblock %}
