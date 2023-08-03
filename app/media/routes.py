@@ -4,7 +4,7 @@ from flask import render_template, request, jsonify
 from app.media import media
 from app import db
 from app.models.star_trek_models import Series, Movie, Staff, Season, Episode, Company, Performer
-
+from app.helpers import MemoryAlphaScraper, replace_space
 
 @media.route('/')
 def media_index():
@@ -40,23 +40,30 @@ def show(title):
 @media.route('/performers')
 def performers():
     """Returns all the performers from the database which is also the cast of characters."""
-    performers = Performer.query.all()
-    return render_template('performers.html', performers=performers, title="Performers")
+    performers = Performer.query.order_by(Performer.name).all()
+    page = request.args.get('page', 1, type=int)
+    paginated_performers = Performer.query.order_by(Performer.name).paginate(page=page, per_page=10)
+    return render_template('performers.html', performers=performers, title="Performers", paginated_performers=paginated_performers, page=page)
 
 @media.route('/performer/<name>')
 def performer(name):
     """Returns a single performer."""
     performer = Performer.query.filter_by(name=name).first()
-    return render_template('performer.html', performer=performer, title=name)
+    if performer:
+        try:
+            scrapped_performer = MemoryAlphaScraper(replace_space(name))
+            summary = scrapped_performer.get_summary()
+            if summary:
+                return render_template('performer.html', performer=performer, title=name, summary=summary)
+            else:
+                print("No summary found.")
+                raise TypeError
+        except TypeError as e:
+            return "Error: " + str(e)
+                
     
 
-# ************** More mundane routes ****************
-@media.route('/companies')
-def companies():
-    """Return a list of companies from the database related to star trek."""
-    companies = Company.query.all()
-    return render_template('companies.html', companies=companies, title="Companies")
-    
+
 # @movies.route('/')
 # def show_movies():
 #     """This page shows all the movies in the database."""

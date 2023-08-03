@@ -6,6 +6,10 @@ import requests
 import urllib.request
 
 
+
+
+# ********************************!SECTION: HELPER FUNCTIONS********************************
+
 def replace_space(string):
     """Replace spaces with underscores"""
     if " " in string:

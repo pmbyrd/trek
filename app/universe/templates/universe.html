@@ -13,35 +13,35 @@ content %}
   </p>
 </div>
 <ul>
-  <li class="image-li-ships"><a href="/universe/animals">animals</a></li>
+  <li class="image-li-ships"><a href="{{url_for('universe.animals')}}">animals</a></li>
   <p>has some data</p>
-  <li class="image-li-ships"><a href="/universe/astronomical-objects">astronomical objects</a></li>
-  <li class="image-li-ships"><a href="/universe/characters">characters</a></li> 
+  <li class="image-li-ships"><a href="{{url_for('universe.astronomical_objects')}}">astronomical objects</a></li>
+  <li class="image-li-ships"><a href="{{url_for('universe.characters')}}">characters</a></li> 
   <p>The characters route is returning blank what seems to be the correct format</p>
-  <li class="image-li-ships"><a href="/universe/conflicts">conflict</a></li>
+  <li class="image-li-ships"><a href="{{url_for('universe.conflicts')}}">conflicts</a></li>
   <p>skipped on for not on 07.21.23 need a better way to process this bit of information</p>
-  <li class="image-li-ships"><a href="/universe/elements">element</a></li>
-  <p>skipped on for not on 07.21.23 need a better way to process this bit of information</p>
-
-  <li class="image-li-ships"><a href="/universe/foods">food</a></li>
+  <li class="image-li-ships"><a href="{{url_for('universe.elements')}}">elements</a></li>
   <p>skipped on for not on 07.21.23 need a better way to process this bit of information</p>
 
-  <li class="image-li-ships"><a href="/universe/locations">location</a></li>
+  <li class="image-li-ships"><a href="{{url_for('universe.foods')}}">foods</a></li>
   <p>skipped on for not on 07.21.23 need a better way to process this bit of information</p>
-  <li class="image-li-ships"><a href="/universe/materials">material</a></li>
+
+  <li class="image-li-ships"><a href="{{url_for('universe.locations')}}">locations</a></li>
+  <p>skipped on for not on 07.21.23 need a better way to process this bit of information</p>
+  <li class="image-li-ships"><a href="{{url_for('universe.materials')}}">materials</a></li>
     
-  <li class="image-li-ships"><a href="/universe/occupations">occupation</a></li>
+  <li class="image-li-ships"><a href="{{url_for('universe.occupations')}}">occupations</a></li>
   <p>The characters route is returning blank what seems to be the correct format</p>
 
-  <li class="image-li-ships"><a href="/universe/organizations">organization</a></li>
-  <li class="image-li-ships"><a href="/universe/spacecrafts">spacecrafts</a></li>
-  <li class="image-li-ships"><a href="/universe/spacecrafts-classes">spacecrafts by class</a></li>
-  <li class="image-li-ships"><a href="/universe/species_all">species</a></li>
+  <li class="image-li-ships"><a href="{{url_for('universe.organizations')}}">organizations</a></li>
+  <li class="image-li-ships"><a href="{{url_for('universe.spacecrafts')}}">spacecrafts</a></li>
+  <li class="image-li-ships"><a href="{{url_for('universe.spacecrafts_classes')}}">spacecrafts by class</a></li>
+  <li class="image-li-ships"><a href="{{ url_for('universe.specieses') }}">species</a></li>
   <p>Species seems to be returning blank</p>
-  <li class="image-li-ships"><a href="/universe/titles">title</a></li>
+  <li class="image-li-ships"><a href="{{url_for('universe.titles')}}">titles</a></li>
     
-  <li class="image-li-ships"><a href="/universe/technologies">technology</a></li>
-  <li class="image-li-ships"><a href="/universe/weapons">weapons</a></li>
+  <li class="image-li-ships"><a href="{{url_for('universe.technologies')}}">technologies</a></li>
+  <li class="image-li-ships"><a href="{{url_for('universe.weapons')}}">weapons</a></li>
   <p>The weapons seem to be returning empty</p>
 </ul>
 </div>
