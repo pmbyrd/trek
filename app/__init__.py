@@ -8,7 +8,7 @@ from flask import Flask
 from flask.logging import default_handler
 
 # Add the parent directory of the 'app' module to sys.path
-from app.extensions import db, migrate, oauth, ma, bootstrap
+from app.extensions import db, migrate, oauth, ma, bootstrap, db
 from config import Config
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -24,6 +24,7 @@ def create_app(config_class=Config):
     oauth.init_app(app)
     bootstrap.init_app(app)
     configure_logging(app)
+    register_cli_commands(app)
 
     with app.app_context():
         # NOTE- Order does matter the initialization process
@@ -61,6 +62,18 @@ def create_app(config_class=Config):
     # app.register_blueprint(shows)
     from app.api import api
     app.register_blueprint(api)
+    
+    engine = db.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+    inspector = db.inspect(engine)
+    if not inspector.has_table("users"):
+        with app.app_context():
+            db.drop_all()
+            db.create_all()
+            app.logger.info('Initialized the database!')
+    else:
+        app.logger.info('Database already contains the users table.')
+
+
 
     @app.route('/test/')
     def test_page():
@@ -87,6 +100,15 @@ def configure_logging(app):
     app.logger.removeHandler(default_handler)
 
     app.logger.info('Starting the Flask User Management App...')
+    
+def register_cli_commands(app):
+    @app.cli.command('init_db')
+    def initialize_database():
+        """Initialize the database."""
+        db.drop_all()
+        db.create_all()
+        echo('Initialized the database!')
+
 
 
 
