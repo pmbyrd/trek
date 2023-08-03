@@ -14,22 +14,22 @@ class User(db.Model, UserMixin):
     
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     
-    username = db.Column(db.Text(32), nullable=False, unique=True)
+    username = db.Column(db.String(32), nullable=False, unique=True)
     
-    first_name= db.Column(db.Text(32), nullable=False)
+    first_name= db.Column(db.String(32), nullable=False)
     
-    last_name = db.Column(db.Text(32), nullable=False)
+    last_name = db.Column(db.String(32), nullable=False)
     
-    email = db.Column(db.Text, nullable=False, unique=True)
+    email = db.Column(db.String, nullable=False, unique=True)
     
-    avatar = db.Column(db.Text, nullable=False, default=DEFAULT_IMAGE_URL)
+    avatar = db.Column(db.String, nullable=False, default=DEFAULT_IMAGE_URL)
     
-    password = db.Column(db.Text, nullable=False)
+    password = db.Column(db.String, nullable=False)
     # password_hash = db.Column(db.String(64), nullable=False)
     
-    bio = db.Column(db.Text, nullable=True)
+    bio = db.Column(db.String, nullable=True)
     
-    location = db.Column(db.Text, nullable=True)
+    location = db.Column(db.String, nullable=True)
     
     
     def __repr__(self):

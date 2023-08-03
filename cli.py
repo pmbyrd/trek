@@ -259,3 +259,6 @@ def register(app):
                 from app.seed.users_seed import seed_users
                 seed_users()
                 print('Seeded the database.')
+
+if __name__ == '__main__':
+    print("Inside the cli.py file.")

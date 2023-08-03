@@ -24,7 +24,7 @@ def create_app(config_class=Config):
     oauth.init_app(app)
     bootstrap.init_app(app)
     configure_logging(app)
-    register_cli_commands(app)
+    # register_cli_commands(app)
 
     with app.app_context():
         # NOTE- Order does matter the initialization process
@@ -101,13 +101,13 @@ def configure_logging(app):
 
     app.logger.info('Starting the Flask User Management App...')
     
-def register_cli_commands(app):
-    @app.cli.command('init_db')
-    def initialize_database():
-        """Initialize the database."""
-        db.drop_all()
-        db.create_all()
-        echo('Initialized the database!')
+# def register_cli_commands(app):
+#     @app.cli.command('init_db')
+#     def initialize_database():
+#         """Initialize the database."""
+#         db.drop_all()
+#         db.create_all()
+#         echo('Initialized the database!')
 
 
 
