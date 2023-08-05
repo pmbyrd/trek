@@ -1,15 +1,16 @@
 import sys
+import json
 import os
 import logging
 from logging.handlers import RotatingFileHandler
 
 from click import echo
-from flask import Flask
+from flask import Flask, render_template
 from flask.logging import default_handler
 
 # Add the parent directory of the 'app' module to sys.path
 from app.extensions import db, migrate, oauth, ma, bootstrap, db
-from config import Config
+from config import Config, config
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -20,6 +21,7 @@ def create_app(config_class=Config):
     
     config_type = os.getenv('CONFIG_TYPE', default='config.DevelopmentConfig')
     app.config.from_object(config_class)
+    app.secret_key = config["WEBAPP"]["SECRET_KEY"]
     # Initialize Flask extensions here
     oauth.init_app(app)
     bootstrap.init_app(app)
@@ -100,7 +102,13 @@ def configure_logging(app):
     app.logger.removeHandler(default_handler)
 
     app.logger.info('Starting the Flask User Management App...')
-    
+
+def to_pretty_json(obj: dict) -> str:
+    return json.dumps(obj, default=lambda o: o.__dict__, indent=4)
+
+
+def page_not_found(e):
+    return render_template('404.html'), 404   
 # def register_cli_commands(app):
 #     @app.cli.command('init_db')
 #     def initialize_database():
