@@ -1,5 +1,5 @@
 from app.main import bp as main
-from flask import render_template
+from flask import render_template, jsonify
 
 @main.route('/')
 def index():
@@ -12,3 +12,18 @@ def lcars():
 @main.route('/profile')
 def profile():
     return render_template('profile.html')
+
+@main.route("/user_main")
+def user_view():
+    """
+    User endpoint, can only be accessed by an authorized user
+    """
+    return jsonify(msg="Hello user!")
+
+@main.route("/admin")
+def admin_view():
+    """
+    Admin endpoint, can only be accessed by an admin
+    """
+    return jsonify(msg="Hello admin!")
+
