@@ -1,5 +1,5 @@
 from app.main import bp as main
-from flask import render_template
+from flask import render_template, url_for
 
 @main.route('/')
 def index():
@@ -11,4 +11,4 @@ def lcars():
 
 @main.route('/profile')
 def profile():
-    return render_template('profile.html')
+    return url_for('main.profile')
