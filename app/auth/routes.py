@@ -65,7 +65,9 @@ def google_auth():
     # import pdb; pdb.set_trace()
     print(" Google User ", user)
     # return redirect('/')
-    return "Google User: {}".format(user)
+    return redirect(url_for('main.profile'))
+
+
 @auth.route('/protected_area')
 @login_is_required
 def protected_area():

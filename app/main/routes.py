@@ -11,4 +11,5 @@ def lcars():
 
 @main.route('/profile')
 def profile():
-    return url_for('main.profile')
+    """Takes the user to their profile page"""
+    return render_template('profile.html')
