@@ -4,11 +4,10 @@ content %}
 <ul>
 	<!-- NOTE movie in this list should also correspond to each movie  -->
 	{% for movie in movies %}
-	<li>
-		<a href="{{ url_for('media.movie', title=movie.title) }}"
-			>{{ movie.title }}</a
-		>
+	<li class="movies-list">
+		<!-- I want one card each and for that card to go to the page on the backend -->
 	</li>
+	<!-- NOTE will try passing each title as a class that will be filled by the js -->
 	{% endfor %}
 </ul>
 <div class="container movies">

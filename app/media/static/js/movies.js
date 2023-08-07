@@ -77,11 +77,11 @@ async function displayMovies() {
                     <p class="card-text">${movieData.released}</p>
                     <p class="card-text">${movieData.runtime}</p>
                     <p class="card-text">${movieData.metascore}</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <a href="/media/movies/${movieData.title}" class="btn btn-primary">${movieData.title}</a>
                 </div>
             </div>
             `)
-            $moviesContainer.append($movieCard)
+            $(".movies-list").append($movieCard)
         }       
     } catch (error) {
         console.log(error)

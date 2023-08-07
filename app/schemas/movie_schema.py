@@ -17,3 +17,5 @@ class MovieSchema(ma.SQLAlchemyAutoSchema):
             self.exclude = ()
             self.additional = ()
         
+        # In theory if I return the url for the movie it should work.
+    
