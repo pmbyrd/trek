@@ -1,5 +1,7 @@
 from app.main import bp as main
-from flask import render_template, url_for
+from flask import render_template, session, abort
+from flask_login import login_required
+from app.helpers import login_is_required
 
 @main.route('/')
 def index():
@@ -9,7 +11,15 @@ def index():
 def lcars():
     return render_template('lcars-lower-decks-padd.html')
 
+
+@login_is_required
 @main.route('/profile')
 def profile():
     """Takes the user to their profile page"""
-    return render_template('profile.html')
+    # need to test that the user is logged in
+    user = session.get('user')
+    if user is None:
+        return abort(401)
+    else:
+        print(user)
+        return render_template('profile.html', user=user)

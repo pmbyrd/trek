@@ -3,16 +3,9 @@ from flask import render_template, abort, session, redirect, url_for
 from app.extensions import oauth
 import os
 from authlib.common.security import generate_token
+from app.helpers import login_is_required
 
 
-
-def login_is_required(function):
-    def wrapper(*args, **kwargs):
-        if "google_id" not in session:
-            abort(401)  # Unauthorized
-        else:
-            return function()
-    return wrapper
 
 
 @auth.route('/login')
@@ -65,7 +58,7 @@ def google_auth():
     # import pdb; pdb.set_trace()
     print(" Google User ", user)
     # return redirect('/')
-    return redirect(url_for('main.profile'))
+    return redirect(url_for('main.profile', user=user))
 
 
 @auth.route('/protected_area')
