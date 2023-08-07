@@ -1,7 +1,7 @@
 from app.main import bp as main
 from flask import render_template, session, abort
-from flask_login import login_required
 from app.helpers import login_is_required
+from app.models.models import User
 
 @main.route('/')
 def index():
@@ -22,4 +22,5 @@ def profile():
         return abort(401)
     else:
         print(user)
-        return render_template('profile.html', user=user)
+    
+    return render_template('profile.html', user=user)

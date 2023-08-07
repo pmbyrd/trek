@@ -152,7 +152,13 @@
 
                 <div class="button-col">
                     <div class="button" id="top-right"><a href="/posts">Post</a></div>
-                    <div class="button" id="bottom-right"><a href="{{url_for('auth.login')}}">signup/login</a></div>
+                    <!-- If the user is logged in I want a logout button, else I want a Login in button-->
+                    {% if user %}
+                    <div class="button" id="bottom-right"><a href="{{url_for('auth.logout')}}">Logout</a></div>
+                    {% else %}
+                    <div class="button" id="bottom-right"><a href="{{url_for('auth.login')}}">Login</a></div>
+                    {% endif %}
+                    <!-- <div class="button" id="bottom-right"><a href="{{url_for('auth.login')}}">signup/login</a></div> -->
                 </div>
             </div>
             <div class="runner">
