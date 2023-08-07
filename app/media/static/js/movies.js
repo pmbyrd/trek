@@ -5,8 +5,19 @@ const $moviesContainer = $(".movies")
 let $movieCard = $(".movie-card")
 const $moviesList = $(".movies-list")
 
-const OMDBAPI = "http://www.omdbapi.com/?i=tt3896198&apikey=cbdaf169"
+const OMDBAPI = "http://www.omdbapi.com/?i=tt3896198&apikey="
 
+
+async function getAPIKey() {
+    try {
+        const res = await axios.get('/api/OMDB_API_KEY')
+        const API_KEY = res.data
+        console.log(API_KEY)
+        return API_KEY
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 
 async function getMovies() {
@@ -22,11 +33,11 @@ async function getMovies() {
     }
 }
 
-getMovies()
 
 async function getMovie(movieTitle) {
     try {
-        const res = await axios.get(`${OMDBAPI}&t=${movieTitle}`);
+        const API_KEY = await getAPIKey()
+        const res = await axios.get(`${OMDBAPI}${API_KEY}&t=${movieTitle}`);
         let movie = res.data
         return movie = {
             title: movie.Title,
