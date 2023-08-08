@@ -77,7 +77,7 @@ async function displayMovies() {
                     <p class="card-text">${movieData.released}</p>
                     <p class="card-text">${movieData.runtime}</p>
                     <p class="card-text">${movieData.metascore}</p>
-                    <a href="/media/movies/${movieData.title}" class="btn btn-primary">${movieData.title}</a>
+                    <a href="/media/movie/${movieData.title}" class="btn btn-primary">${movieData.title}</a>
                 </div>
             </div>
             `)
