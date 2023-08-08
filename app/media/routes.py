@@ -2,6 +2,8 @@
 
 from flask import render_template, request, jsonify
 from app.media import media
+from app.media.models.comment_model import Comment
+from app.media.forms.comment_form import CommentForm
 from app import db
 from app.models.star_trek_models import Series, Movie, Staff, Season, Episode, Company, Performer
 from app.helpers import MemoryAlphaScraper, replace_space
@@ -23,7 +25,8 @@ def movies():
 def movie(title):
     """Return a single movie."""
     movie = Movie.query.filter_by(title=title).first()
-    return render_template('movie.html', movie=movie, title=title)
+    comment_form = CommentForm()
+    return render_template('movie.html', movie=movie, title=title, form=comment_form)
     
 @media.route('/shows')
 def shows():
