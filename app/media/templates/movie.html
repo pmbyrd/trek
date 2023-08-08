@@ -1,5 +1,25 @@
 {% extends "base.html" %}
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
-  <h1>{{movie.title}}</h1>
-{% endblock %}
+  <h1 class="movie-title">{{movie.title}}</h1>
+
+  <div class="container">
+    <div class="container movie-card">
+      <!-- Insert js code here -->
+    </div>
+    <!-- Insert from the backend the form that I wish to be rendered here -->
+    <div class="movie-comment-form">
+      <!-- I will need to post to where I want the movie comments to go -->
+    </div>
+    <div class="movie-comments">
+      <!-- I will need to get the comments from the backend and render them here -->
+    </div>
+    <div class="discussions">
+      <!-- I will need to get the discussions from the backend and render them here -->  
+      <!-- Note discussions will discuss all other reviews -->
+    </div>
+  </div>
+  {% block scripts %}
+  <script src="{{ url_for('media.static', filename='/js/models.js')}}"></script>
+  <script src="{{ url_for('media.static', filename='/js/movie.js') }}"></script>
+  {% endblock %} {% endblock %}

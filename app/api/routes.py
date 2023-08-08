@@ -23,6 +23,12 @@ def omdb_api_key():
     OMDB_API_KEY = os.environ.get('OMDB_API_KEY')
     return OMDB_API_KEY
 
+@api.route('/api/TMDB_API_KEY')
+def tmdb_api_key():
+    """Returns the TMDB_API_KEY"""
+    TMDB_API_KEY = os.environ.get('TMDB_API_KEY')
+    return TMDB_API_KEY
+
 @api.route('/api/test')
 def testing():
     """Test request to for json"""
