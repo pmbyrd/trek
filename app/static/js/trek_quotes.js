@@ -206,9 +206,37 @@ const formatQuote = (quoteList) => {
             source: q[2]
         };
     });
-
     return formattedQuotes;
 };
 
-const formattedQuotes = formatQuote(quoteList);
-console.log(formattedQuotes[0]);
+function showRandomQuote(formattedQuotes) {
+    // Randomly select an index from the array
+    const randomIndex = Math.floor(Math.random() * formattedQuotes.length);
+
+    // Get the randomly selected quote
+    const randomQuote = formattedQuotes[randomIndex];
+
+    // Display the random quote
+    let $quoteCard = `
+    <div class="quote-card">
+    <div class="quote-text"><strong>${randomQuote.quote}</strong></div>
+    <div class="quote-person"><em> -${randomQuote.person}</em></div>
+    <div class="quote-source"><u>${randomQuote.source}</u></div>
+</div>
+    `;
+
+    $('.quotes').html($quoteCard);
+}
+
+function displayRandomQuotes(formattedQuotes) {
+    formattedQuotes = formatQuote(quoteList)
+    // Display a random quote immediately
+    showRandomQuote(formattedQuotes);
+
+    // Show a new random quote every 10 seconds
+    setInterval(function() {
+        showRandomQuote(formattedQuotes);
+    }, 10000);
+}
+
+displayRandomQuotes()
