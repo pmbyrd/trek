@@ -1,7 +1,8 @@
 import cli
 from app import create_app
 from app.extensions import db
-from app.media.models.comment_model import Comment
+from app.media.models.review_model import Review
+# from app.media.models.comment_model import Comment
 from app.models.models import User
 from app.models.animal_models import Animal
 from app.models.star_trek_models import (
@@ -57,7 +58,7 @@ def make_shell_context():
         'Title': Title,
         'Weapon': Weapon,
         'User': User,
-        'Comment': Comment,
+        'Review': Review,
     }
 
 if __name__ == '__main__':

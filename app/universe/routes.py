@@ -41,8 +41,6 @@ def animals():
 def animal(name):
     """Returns a single animal from the database"""
     animal = AnimalSchema().dump(Animal.query.filter_by(name=name).first())
-    
-    
     try:     
         scrapped_animal = MemoryAlphaScraper(replace_space(name))
         summary = scrapped_animal.get_summary()

@@ -34,13 +34,12 @@ async function displayMovies() {
             <div class="card mb-4" style="width: 18rem;">
                 <img src="${movieData.poster}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">${movieData.title}</h5>
                     <p class="card-text">${movieData.plot}</p>
-                    <p class="card-text">${movieData.genre}</p>
-                    <p class="card-text">${movieData.director}</p>
-                    <p class="card-text">${movieData.released}</p>
-                    <p class="card-text">${movieData.runtime}</p>
-                    <p class="card-text">${movieData.metascore}</p>
+                    <p class="card-text">Genres: ${movieData.genre}</p>
+                    <p class="card-text">Directo: ${movieData.director}</p>
+                    <p class="card-text">Release date: ${movieData.released}</p>
+                    <p class="card-text">Runtime: ${movieData.runtime}</p>
+                    <p class="card-text">Metascore: ${movieData.metascore}/100</p>
                    
                     <a href="/media/movie/${movieData.title}" class="btn btn-primary">${movieData.title}</a>
                 </div>

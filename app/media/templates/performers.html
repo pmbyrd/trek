@@ -6,7 +6,7 @@ content %}
     {% for performer in paginated_performers.items %}
 </ul>
 
-<li class="image-li-ships"><a href="{{url_for('universe.performer', name=performer.name)}}">{{ performer.name }}</a></li>
+<li class="image-li-ships"><a href="{{url_for('media.performer', name=performer.name)}}">{{ performer.name }}</a></li>
 <!-- Add other attributes as needed -->
 {% endfor %}
 </ul>

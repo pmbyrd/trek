@@ -2,8 +2,10 @@
 
 from flask import render_template, request, jsonify
 from app.media import media
-from app.media.models.comment_model import Comment
-from app.media.forms.comment_form import CommentForm
+# from app.media.models.comment_model import Comment
+# from app.media.forms.comment_form import CommentForm
+from app.media.models.review_model import Review
+from app.media.forms.review_form import ReviewForm
 from app import db
 from app.models.star_trek_models import Series, Movie, Staff, Season, Episode, Company, Performer
 from app.helpers import MemoryAlphaScraper, replace_space
@@ -25,8 +27,8 @@ def movies():
 def movie(title):
     """Return a single movie."""
     movie = Movie.query.filter_by(title=title).first()
-    comment_form = CommentForm()
-    return render_template('movie.html', movie=movie, title=title, form=comment_form)
+    review_form = ReviewForm()
+    return render_template('movie.html', movie=movie, title=title, form=review_form)
     
 @media.route('/shows')
 def shows():
@@ -47,6 +49,7 @@ def performers():
     page = request.args.get('page', 1, type=int)
     paginated_performers = Performer.query.order_by(Performer.name).paginate(page=page, per_page=10)
     return render_template('performers.html', performers=performers, title="Performers", paginated_performers=paginated_performers, page=page)
+
 
 @media.route('/performer/<name>')
 def performer(name):
