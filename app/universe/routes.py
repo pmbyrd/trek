@@ -18,7 +18,7 @@ from app.schemas.species_schema import SpeciesSchema
 from app.schemas.technology_schema import TechnologySchema
 from app.schemas.weapon_schema import WeaponSchema
 from app.helpers import MemoryAlphaScraper, replace_space
-from app.static.img.defaults import tribbles
+from app.static.images.defaults import tribbles
 from random import choices
 
 import json
