@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # from app.auth import auth
 # from flask import render_template, abort, session, redirect, url_for, current_app
 # from app.extensions import oauth
@@ -5,11 +6,20 @@
 # from authlib.integrations.flask_client import OAuth
 # # from authlib.common.security import generate_token
 # from config import config
+=======
+from app.auth import auth
+from flask import render_template, abort, session, redirect, url_for
+from app.extensions import oauth
+import os
+from authlib.common.security import generate_token
+from app.helpers import login_is_required
+>>>>>>> stapi-models
 
 
 # auth0_config = config['AUTH0']
 # oauth = OAuth(current_app)
 
+<<<<<<< HEAD
 # domain = auth0_config["DOMAIN"]
 # client_id = auth0_config["CLIENT_ID"]
 # client_secret = auth0_config["CLIENT_SECRET"]
@@ -24,6 +34,8 @@
 #     server_metadata_url=f'https://{domain}/.well-known/openid-configuration'
 # )
 
+=======
+>>>>>>> stapi-models
 
 # @auth.route("/callback", methods=["GET", "POST"])
 # def callback():
@@ -62,9 +74,16 @@
 #     return render_template('login.html')
 
 
+<<<<<<< HEAD
 # @auth.route('/signup')
 # def signup():
 #     return render_template('signup.html')
+=======
+@auth.route('/logout')
+def logout():
+    
+    return render_template('logout.html')
+>>>>>>> stapi-models
 
 
 # @auth.route('/logout')
@@ -72,6 +91,7 @@
 #     return render_template('logout.html')
 
 
+<<<<<<< HEAD
 # @auth.route('/google/')
 # def google():
 #     # import the google client id and secret from the environment variables
@@ -88,6 +108,28 @@
 #             'scope': 'openid email profile'
 #         }
 #     )
+=======
+    # Redirect to google_auth function
+    redirect_uri = url_for('auth.google_auth', _external=True)
+    print(redirect_uri)
+    session['nonce'] = generate_token()
+    # import pdb; pdb.set_trace()
+    return oauth.google.authorize_redirect(redirect_uri, nonce=session['nonce'])
+
+#FIXME - this is not working 304 error when attempting to login with google 
+#NOTE - Something in relation to the redirect_uri and token and that the google client can not be found.
+@auth.route('/google/auth/')
+def google_auth():
+    token = oauth.google.authorize_access_token()
+    # user = oauth.google.parse_id_token(token)
+    user = oauth.google.parse_id_token(token, nonce=session['nonce'])
+    session['user'] = user
+    # import pdb; pdb.set_trace()
+    print(" Google User ", user)
+    # return redirect('/')
+    return redirect(url_for('main.profile', user=user))
+
+>>>>>>> stapi-models
 
 #     # Redirect to google_auth function
 #     redirect_uri = url_for('auth.google_auth', _external=True)

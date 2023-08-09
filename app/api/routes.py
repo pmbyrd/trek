@@ -12,6 +12,22 @@ from app.schemas.animal_schema import AnimalSchema
 from app.schemas.character_schema import CharacterSchema
 from app.schemas.astronomical_objects_schema import AstronomicalObjectSchema
 from app.schemas.movie_schema import MovieSchema
+# need to load in the omdb api key
+import os
+from dotenv import load_dotenv
+
+
+@api.route('/api/OMDB_API_KEY')
+def omdb_api_key():
+    """Returns the OMDB_API_KEY"""
+    OMDB_API_KEY = os.environ.get('OMDB_API_KEY')
+    return OMDB_API_KEY
+
+@api.route('/api/TMDB_API_KEY')
+def tmdb_api_key():
+    """Returns the TMDB_API_KEY"""
+    TMDB_API_KEY = os.environ.get('TMDB_API_KEY')
+    return TMDB_API_KEY
 
 @api.route('/api/test')
 def testing():

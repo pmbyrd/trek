@@ -1,6 +1,29 @@
 {% extends "base.html" %} {% block title %} Trek {% endblock %} {% block content
 %}
 <!-- Main content here -->
-<h1>Testing the index page</h1>
-<h2>This is being rendered from inside the main blueprint</h2>
-{% endblock %}
+<!-- make a div to hold an images of the whole galaxy -->
+<div class="container">
+    <div class="row">
+        <!-- First Column: Image -->
+        <div class="col-md-6">
+            <div class="map-image text-center">
+                <img src="{{ url_for('static', filename='images/galaxy.png') }}" alt="galaxy"
+                    class="img-fluid galaxy-image" />
+                <a
+                    href="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Galactic_Quadrant_Star_Trek.png/800px-Galactic_Quadrant_Star_Trek.png">Original
+                    link</a>
+            </div>
+        </div>
+
+        <!-- Second Column: Quotes -->
+        <div class="col-md-6">
+            <div class="quotes">
+                <!-- Insert quotes here -->
+            </div>
+        </div>
+    </div>
+</div>
+{% block scripts %}
+<script src="{{ url_for('static', filename='/js/trek_quotes.js') }}"></script>
+
+{% endblock %} {% endblock %}

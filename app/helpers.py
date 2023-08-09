@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup as Soup
 from bs4 import SoupStrainer, Tag
 import requests
 import urllib.request
-
+from flask import session, abort
 
 
 
@@ -17,7 +17,14 @@ def replace_space(string):
     else:
         string = string
     
-    return string
+
+def login_is_required(function):
+    def wrapper(*args, **kwargs):
+        if "google_id" not in session:
+            abort(401)  # Unauthorized
+        else:
+            return function()
+    return wrapper
 
 class MemoryAlphaScraper:
     def __init__(self, name, base_url="https://memory-alpha.fandom.com/wiki"):
