@@ -4,9 +4,11 @@ content %}
 <ul>
 	<!-- NOTE movie in this list should also correspond to each movie  -->
 	{% for movie in movies %}
-	<li class="movies-list">
-		<!-- I want one card each and for that card to go to the page on the backend -->
-	</li>
+	<div class="movies container">
+		<div class="movies-list d-flex flex-wrap">
+		</div>
+	</div>
+		
 	<!-- NOTE will try passing each title as a class that will be filled by the js -->
 	{% endfor %}
 </ul>

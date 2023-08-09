@@ -29,8 +29,9 @@ async function displayMovies() {
         // $moviesContainer.empty();
         for (let movieTitle of movies) {
             let movieData = await getMovie(movieTitle)
+            
             $movieCard = $(`
-            <div class="card" style="width: 18rem;">
+            <div class="card mb-4" style="width: 18rem;">
                 <img src="${movieData.poster}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">${movieData.title}</h5>

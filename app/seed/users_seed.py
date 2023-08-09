@@ -6,7 +6,10 @@
 import os
 from csv import DictReader
 from app.extensions import db
-from app.models import User, DEFAULT_IMAGE_URL
+from app.models.models import User, DEFAULT_IMAGE_URL
+
+User.__table__.drop(bind=db.engine)
+db.create_all()
 
 def seed_users():
     # Define a list of random first and last names to choose from
@@ -27,7 +30,5 @@ def seed_users():
                 db.session.add(user)
                 print(f"Added user {username} with email {email}")
         db.session.commit()
-
-
 
 

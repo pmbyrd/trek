@@ -2,12 +2,15 @@
 """
 
 from app.extensions import db
+from datetime import datetime
 
 DEFAULT_IMAGE_URL = "https://loading.io/icon/tpi8gu"
 
-
 class User(db.Model):
-    """Creates a user model for the database."""
+    """User in the system."""
+
+    __tablename__ = 'users'
+    
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.Text(32), nullable=True, unique=True)
     first_name= db.Column(db.Text(32), nullable=True)
@@ -16,6 +19,7 @@ class User(db.Model):
     profile_pic = db.Column(db.Text, nullable=True, default=DEFAULT_IMAGE_URL)
     bio = db.Column(db.Text, nullable=True)
     location = db.Column(db.Text, nullable=True)
+    joined_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
     @property
     # create a property that returns the full name of the user
