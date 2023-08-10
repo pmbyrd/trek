@@ -20,32 +20,30 @@ async function displayMovie(movieTitle) {
 
 async function displayCast(movieTitle) {
     console.debug("displayCast");
+    $(".actor-cards").empty()
     try {
-        const cast = await getCast(movieTitle);
+        let cast = await getCast(movieTitle);
         console.log(cast);
-        
         for (let actor of cast) {
             let $actorCard = $(`
-                <div class="card" style="width: 18rem;">
-                    <img src="${actor.profile_path}" class="card-img-top" alt="...">
+            <li class="actor-card">
+                <div> 
+                    <img src="${actor.profile_path}" class="smaller-img" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">${actor.character}</h5>
-                        <p>
-                            <a href="/media/performers/${actor.name}" class="btn btn-primary">${actor.name}</a>
-                        </p>
-                        <p class="card-text">${actor.name}</p>
-                    </div>
+                    <p class="card-text"><b>${actor.name}</b></p>
+                    <p class="card-text">${actor.character}</p>
                 </div>
-            `);
-            
-            $(".cast-list").append($actorCard);
-            
-            // I only want to append the first 10 actors
+                </div>
+                <li>
+                `)
+            $(".actor-cards").append($actorCard)
         }
     } catch (error) {
         console.error(error);
     }
 }
 
-$(document).ready(displayMovie(movieTitle))
-$(document).ready(displayCast(movieTitle))
+$(document).ready(function () {
+    displayMovie(movieTitle);
+    displayCast(movieTitle);
+});

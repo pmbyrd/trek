@@ -1,8 +1,35 @@
 .movies-list {
-    /* flex with two per row */
+	/* flex with two per row */
+	margin: 10px;
+	column-gap: 20px;
+	/* center items horizontally */
+}
+
+.cast-list {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+
+.actor {
+    color: #fff;
+    flex: 0 0 auto;
+    width: 200px;
+    height: 200px;
     margin: 10px;
-    column-gap: 20px;
-    /* center items horizontally */
+   
 
 }
 
+.container {
+    margin: 10px;
+}
+
+/*CUSTOM VARIABLES HERE*/
+.actor-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}

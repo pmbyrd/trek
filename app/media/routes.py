@@ -47,7 +47,7 @@ def performers():
     """Returns all the performers from the database which is also the cast of characters."""
     performers = Performer.query.order_by(Performer.name).all()
     page = request.args.get('page', 1, type=int)
-    paginated_performers = Performer.query.order_by(Performer.name).paginate(page=page, per_page=10)
+    paginated_performers = Performer.query.order_by(Performer.name).paginate(page=page, per_page=25)
     return render_template('performers.html', performers=performers, title="Performers", paginated_performers=paginated_performers, page=page)
 
 
